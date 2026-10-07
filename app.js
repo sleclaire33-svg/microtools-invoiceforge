@@ -1,5 +1,5 @@
 const $=id=>document.getElementById(id);
-const PRODUCTS={template_pack:{slot:"paypal-pack",venmoSlot:"venmo-pack",payLaterSlot:"paylater-pack"},lifetime_pro:{slot:"paypal-lifetime",venmoSlot:"venmo-lifetime",payLaterSlot:"paylater-lifetime"}};
+const PRODUCTS={template_pack:{slot:"paypal-pack",venmoSlot:"venmo-pack",payLaterSlot:"paylater-pack",cardSlot:"card-pack"},lifetime_pro:{slot:"paypal-lifetime",venmoSlot:"venmo-lifetime",payLaterSlot:"paylater-lifetime",cardSlot:"card-lifetime"}};
 function makeQR(){
   const t=$("qrText").value.trim(),r=$("qrResult");
   r.replaceChildren();
@@ -30,7 +30,7 @@ async function setupPayPal(){
 }
 async function initPayPal(cfg){
   try{
-    const sdk=await window.paypal.createInstance({clientId:cfg.paypalClientId,components:["paypal-payments","venmo-payments","googlepay-payments","applepay-payments"],pageType:"checkout",locale:navigator.language||"en-US"});
+    const sdk=await window.paypal.createInstance({clientId:cfg.paypalClientId,components:["paypal-payments","venmo-payments","googlepay-payments","applepay-payments","paypal-guest-payments"],pageType:"checkout",locale:navigator.language||"en-US"});
     const methods=await sdk.findEligibleMethods({currencyCode:cfg.currency});
     for(const [product,p] of Object.entries(PRODUCTS)){
       const createOrder=()=>api("/api/create-order",{product}).then(o=>({orderId:o.orderId}));
@@ -45,6 +45,11 @@ async function initPayPal(cfg){
         const session=sdk.createVenmoOneTimePaymentSession({onApprove,onCancel:()=>{$("payStatus").textContent="Payment cancelled."},onError:()=>{$("payStatus").textContent="Payment could not be completed."}});
         b.addEventListener("click",async()=>{try{await session.start({presentationMode:"auto"},createOrder())}catch(e){console.error(e);$("payStatus").textContent=e.message}})
       }else $(p.venmoSlot).textContent="";
+      if(methods.isEligible("card")){
+        const b=document.createElement("paypal-basic-card-button");b.type="pay";$(p.cardSlot).replaceChildren(b);
+        const session=await sdk.createPayPalGuestOneTimePaymentSession({onApprove,onComplete:()=>{},onCancel:()=>{$("payStatus").textContent="Payment cancelled."},onError:()=>{$("payStatus").textContent="Card payment could not be completed."}});
+        b.addEventListener("click",async()=>{try{await session.start({presentationMode:"auto"},createOrder())}catch(e){console.error(e);$("payStatus").textContent=e.message}})
+      }else $(p.cardSlot).textContent="";
       if(methods.isEligible("paylater")){
         const details=methods.getDetails("paylater"),b=document.createElement("paypal-pay-later-button");b.type="pay";if(details?.productCode)b.productCode=details.productCode;if(details?.countryCode)b.countryCode=details.countryCode;$(p.payLaterSlot).replaceChildren(b);
         const session=sdk.createPayLaterOneTimePaymentSession({onApprove,onCancel:()=>{$("payStatus").textContent="Payment cancelled."},onError:()=>{$("payStatus").textContent="Payment could not be completed."}});
