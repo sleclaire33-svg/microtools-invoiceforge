@@ -1,0 +1,1 @@
+module.exports=(req,res)=>res.status(200).json({paypalClientId:process.env.PAYPAL_CLIENT_ID||"",currency:process.env.PAYPAL_CURRENCY||"USD",environment:process.env.PAYPAL_ENV==="production"?"production":"sandbox"});
