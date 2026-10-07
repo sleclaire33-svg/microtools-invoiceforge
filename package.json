@@ -1,0 +1,1 @@
+{"name":"microtools-hub-invoiceforge","version":"5.0.0","private":true,"engines":{"node":">=20"},"scripts":{"start":"npx serve ."}}
