@@ -25,7 +25,7 @@ async function setupPayPal(){
   try{
     const cfg=await fetch("/api/config").then(r=>r.json());
     if(!cfg.paypalClientId){$("payStatus").textContent="Checkout will appear after the hosting credentials are configured.";return}
-    const s=document.createElement("script");s.async=true;s.src=(cfg.environment==="production"?"https://www.paypal.com/web-sdk/v6/core.js":"https://www.sandbox.paypal.com/web-sdk/v6/core.js");s.onload=()=>initPayPal(cfg);document.head.appendChild(s)
+    const s=document.createElement("script");s.async=true;s.src=(cfg.environment==="production"?"https://www.paypal.com/web-sdk/v6/core":"https://www.sandbox.paypal.com/web-sdk/v6/core");s.onload=()=>initPayPal(cfg);document.head.appendChild(s)
   }catch(e){console.error(e);$("payStatus").textContent="Checkout setup is temporarily unavailable."}
 }
 async function initPayPal(cfg){
@@ -57,7 +57,7 @@ async function initPayPal(cfg){
       }else $(p.payLaterSlot).textContent="";
     }
     const extras=[];if(methods.isEligible("googlepay"))extras.push("Google Pay");if(methods.isEligible("applepay"))extras.push("Apple Pay");if(methods.isEligible("card"))extras.push("credit/debit cards");
-    if(extras.length)$("payStatus").textContent="Additional eligible options: "+extras.join(", ")+".";
+    if(extras.length)$("payStatus").textContent="Checkout options are shown based on your location, currency, device, and PayPal eligibility.";
   }catch(e){console.error(e);$("payStatus").textContent="PayPal checkout could not be initialized."}
 }
 setupPayPal();
