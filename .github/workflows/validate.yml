@@ -15,4 +15,12 @@ jobs:
       - name: Check JavaScript syntax
         run: |
           node --check app.js
-          for f in api/*.js; do node --check "$f"; done
+          for f in api/*.js netlify/functions/*.js; do node --check "$f"; done
+      - name: Verify Netlify public copy
+        run: |
+          cmp -s index.html public/index.html
+          cmp -s app.js public/app.js
+          cmp -s styles.css public/styles.css
+          cmp -s privacy.html public/privacy.html
+          cmp -s terms.html public/terms.html
+          cmp -s refunds.html public/refunds.html
