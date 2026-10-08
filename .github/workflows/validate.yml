@@ -24,3 +24,9 @@ jobs:
           cmp -s privacy.html public/privacy.html
           cmp -s terms.html public/terms.html
           cmp -s refunds.html public/refunds.html
+      - name: Verify launch SEO files
+        run: |
+          test -s public/robots.txt
+          test -s public/sitemap.xml
+          grep -q "https://invoiceforge.netlify.app/sitemap.xml" public/robots.txt
+          grep -q "https://invoiceforge.netlify.app/" public/sitemap.xml
