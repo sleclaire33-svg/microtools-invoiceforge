@@ -112,12 +112,22 @@ function setCheckoutStatus(message){
   $("payStatus").setAttribute("role","status");
 }
 
+function setAllCheckoutSlots(message){
+  for(const slots of Object.values(PRODUCTS)){
+    for(const key of ["slot","venmoSlot","cardSlot","payLaterSlot"]){
+      const element=$(slots[key]);
+      if(element)element.textContent=message;
+    }
+  }
+}
+
 async function setupPayPal(){
   try{
     const response=await fetch("/api/config",{headers:{"Accept":"application/json"}});
     if(!response.ok)throw Error("Checkout configuration could not be loaded.");
     const config=await response.json();
     if(!config.checkoutReady){
+      setAllCheckoutSlots("Checkout setup incomplete");
       setCheckoutStatus("Checkout is not ready yet. Payment credentials and the secure fulfillment setting must be completed before purchases can be accepted.");
       return;
     }
@@ -134,6 +144,7 @@ async function setupPayPal(){
     document.head.append(script);
   }catch(error){
     console.error(error);
+    setAllCheckoutSlots("Checkout temporarily unavailable");
     setCheckoutStatus("Checkout setup is temporarily unavailable.");
   }
 }
