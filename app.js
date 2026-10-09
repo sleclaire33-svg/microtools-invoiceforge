@@ -181,7 +181,7 @@ async function initPayPal(config){
         const button=document.createElement("paypal-button");
         button.type="pay";
         $(slots.slot).replaceChildren(button);
-        const session=sdk.createPayPalOneTimePaymentSession({onApprove,onCancel,onError});
+        const session=await sdk.createPayPalOneTimePaymentSession({onApprove,onCancel,onError});
         button.addEventListener("click",async()=>{
           try{setCheckoutStatus("Opening secure PayPal checkout…");await session.start({presentationMode:"auto"},createOrder())}
           catch(error){console.error(error);setCheckoutStatus(error.message||"PayPal checkout could not start.")}
@@ -192,7 +192,7 @@ async function initPayPal(config){
         const button=document.createElement("venmo-button");
         button.type="pay";
         $(slots.venmoSlot).replaceChildren(button);
-        const session=sdk.createVenmoOneTimePaymentSession({onApprove,onCancel,onError});
+        const session=await sdk.createVenmoOneTimePaymentSession({onApprove,onCancel,onError});
         button.addEventListener("click",async()=>{
           try{setCheckoutStatus("Opening secure Venmo checkout…");await session.start({presentationMode:"auto"},createOrder())}
           catch(error){console.error(error);setCheckoutStatus(error.message||"Venmo checkout could not start.")}
@@ -217,7 +217,7 @@ async function initPayPal(config){
         if(details?.productCode)button.productCode=details.productCode;
         if(details?.countryCode)button.countryCode=details.countryCode;
         $(slots.payLaterSlot).replaceChildren(button);
-        const session=sdk.createPayLaterOneTimePaymentSession({onApprove,onCancel,onError});
+        const session=await sdk.createPayLaterOneTimePaymentSession({onApprove,onCancel,onError});
         button.addEventListener("click",async()=>{
           try{setCheckoutStatus("Opening secure Pay Later checkout…");await session.start({presentationMode:"auto"},createOrder())}
           catch(error){console.error(error);setCheckoutStatus(error.message||"Pay Later checkout could not start.")}
