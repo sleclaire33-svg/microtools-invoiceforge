@@ -79,6 +79,52 @@ test("download accepts a correctly signed, unexpired fulfillment link",async()=>
   }
 });
 
+
+test("captured order fulfillment URL is accepted by the download verifier",async()=>{
+  const captureHandler=require("../api/capture-order");
+  const downloadHandler=require("../api/download");
+  const keys=["PAYPAL_CLIENT_ID","PAYPAL_CLIENT_SECRET","PAYPAL_ENV","PAYPAL_CURRENCY","FULFILLMENT_SIGNING_SECRET"];
+  const previous=Object.fromEntries(keys.map(key=>[key,process.env[key]]));
+  const originalFetch=global.fetch;
+  const secret="unit-test-only-secret-not-for-production";
+  Object.assign(process.env,{
+    PAYPAL_CLIENT_ID:"sandbox-client-id",
+    PAYPAL_CLIENT_SECRET:"sandbox-client-secret",
+    PAYPAL_ENV:"sandbox",
+    PAYPAL_CURRENCY:"USD",
+    FULFILLMENT_SIGNING_SECRET:secret
+  });
+  global.fetch=async(url,options={})=>{
+    if(String(url).endsWith("/v1/oauth2/token"))return{ok:true,status:200,json:async()=>({access_token:"test-access-token"})};
+    if(String(url).includes("/v2/checkout/orders/TESTORDER1234"))return{ok:true,status:200,json:async()=>({
+      id:"TESTORDER1234",
+      status:"COMPLETED",
+      purchase_units:[{
+        custom_id:"template_pack",
+        amount:{currency_code:"USD",value:"14.99"},
+        payments:{captures:[{id:"CAPTURE123",status:"COMPLETED"}]}
+      }]
+    })};
+    throw Error("Unexpected test PayPal request: "+url);
+  };
+  try{
+    const captureRes=response();
+    await captureHandler({method:"POST",body:{orderId:"TESTORDER1234",product:"template_pack"}},captureRes);
+    assert.equal(captureRes.statusCode,200);
+    assert.equal(captureRes.body.status,"COMPLETED");
+    const downloadUrl=new URL(captureRes.body.downloadUrl,"https://example.test");
+    const downloadRes=response();
+    await downloadHandler({query:Object.fromEntries(downloadUrl.searchParams.entries())},downloadRes);
+    assert.equal(downloadRes.statusCode,200);
+    assert.match(downloadRes.body,/InvoiceForge Template Pack/);
+  }finally{
+    global.fetch=originalFetch;
+    for(const key of keys){
+      if(previous[key]===undefined)delete process.env[key];else process.env[key]=previous[key];
+    }
+  }
+});
+
 test("download rejects expired or forged fulfillment links",async()=>{
   const handler=require("../api/download");
   const previous=process.env.FULFILLMENT_SIGNING_SECRET;
