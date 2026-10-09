@@ -156,7 +156,7 @@ async function initPayPal(config){
           showPaid(result);
         }catch(error){
           console.error(error);
-          setCheckoutStatus("Your payment may have been approved, but confirmation is still pending. Please contact sleclaire33@gmail.com with your PayPal order ID before trying again.");
+          setCheckoutStatus("Your payment may have been approved, but confirmation is still pending. PayPal order ID: "+orderId+". Please contact sleclaire33@gmail.com before trying again.");
           throw error;
         }
       };
