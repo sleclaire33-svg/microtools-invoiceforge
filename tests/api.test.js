@@ -141,3 +141,29 @@ test("download rejects expired or forged fulfillment links",async()=>{
     else process.env.FULFILLMENT_SIGNING_SECRET=previous;
   }
 });
+
+
+test("paid downloads deliver substantial product-specific content",async()=>{
+  const handler=require("../api/download");
+  const previous=process.env.FULFILLMENT_SIGNING_SECRET;
+  const secret="unit-test-only-secret-not-for-production";
+  process.env.FULFILLMENT_SIGNING_SECRET=secret;
+  try{
+    for(const [product,expected] of [
+      ["template_pack",/12 editable client communication and admin templates/],
+      ["lifetime_pro",/Quote-to-cash tracker/]
+    ]){
+      const exp=Math.floor(Date.now()/1000)+600;
+      const sig=crypto.createHmac("sha256",secret).update(product+"."+exp).digest("hex");
+      const res=response();
+      await handler({query:{product,exp:String(exp),sig}},res);
+      assert.equal(res.statusCode,200);
+      assert.match(res.body,expected);
+      assert.match(res.body,/Print \/ Save as PDF/);
+      assert.match(res.body,/noindex,nofollow/);
+    }
+  }finally{
+    if(previous===undefined)delete process.env.FULFILLMENT_SIGNING_SECRET;
+    else process.env.FULFILLMENT_SIGNING_SECRET=previous;
+  }
+});
