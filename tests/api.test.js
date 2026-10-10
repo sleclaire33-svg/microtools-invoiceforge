@@ -170,3 +170,61 @@ test("paid downloads deliver substantial product-specific content",async()=>{
     else process.env.FULFILLMENT_SIGNING_SECRET=previous;
   }
 });
+
+
+test("order creation uses server-defined product price and currency",async()=>{
+  const handler=require("../api/create-order");
+  const keys=["PAYPAL_CLIENT_ID","PAYPAL_CLIENT_SECRET","PAYPAL_ENV","PAYPAL_CURRENCY"];
+  const previous=Object.fromEntries(keys.map(key=>[key,process.env[key]]));
+  const originalFetch=global.fetch;
+  Object.assign(process.env,{PAYPAL_CLIENT_ID:"sandbox-client-id",PAYPAL_CLIENT_SECRET:"sandbox-client-secret",PAYPAL_ENV:"sandbox",PAYPAL_CURRENCY:"USD"});
+  let orderRequest;
+  global.fetch=async(url,options={})=>{
+    if(String(url).endsWith("/v1/oauth2/token"))return{ok:true,status:200,json:async()=>({access_token:"test-access-token"})};
+    if(String(url).endsWith("/v2/checkout/orders")){
+      orderRequest=JSON.parse(options.body);
+      return{ok:true,status:201,json:async()=>({id:"TESTORDER1234"})};
+    }
+    throw Error("Unexpected test PayPal request: "+url);
+  };
+  try{
+    const res=response();
+    await handler({method:"POST",body:{product:"lifetime_pro"}},res);
+    assert.equal(res.statusCode,200);
+    assert.equal(res.body.orderId,"TESTORDER1234");
+    assert.equal(orderRequest.intent,"CAPTURE");
+    assert.equal(orderRequest.purchase_units[0].custom_id,"lifetime_pro");
+    assert.deepEqual(orderRequest.purchase_units[0].amount,{currency_code:"USD",value:"29.00"});
+  }finally{
+    global.fetch=originalFetch;
+    for(const key of keys){if(previous[key]===undefined)delete process.env[key];else process.env[key]=previous[key];}
+  }
+});
+
+test("capture refuses a PayPal order with mismatched product amount before capture",async()=>{
+  const handler=require("../api/capture-order");
+  const keys=["PAYPAL_CLIENT_ID","PAYPAL_CLIENT_SECRET","PAYPAL_ENV","PAYPAL_CURRENCY"];
+  const previous=Object.fromEntries(keys.map(key=>[key,process.env[key]]));
+  const originalFetch=global.fetch;
+  Object.assign(process.env,{PAYPAL_CLIENT_ID:"sandbox-client-id",PAYPAL_CLIENT_SECRET:"sandbox-client-secret",PAYPAL_ENV:"sandbox",PAYPAL_CURRENCY:"USD"});
+  let captureCalled=false;
+  global.fetch=async(url,options={})=>{
+    if(String(url).endsWith("/v1/oauth2/token"))return{ok:true,status:200,json:async()=>({access_token:"test-access-token"})};
+    if(String(url).endsWith("/v2/checkout/orders/TESTORDER1234"))return{ok:true,status:200,json:async()=>({
+      id:"TESTORDER1234",status:"APPROVED",
+      purchase_units:[{custom_id:"template_pack",amount:{currency_code:"USD",value:"0.01"}}]
+    })};
+    if(String(url).includes("/capture"))captureCalled=true;
+    throw Error("Unexpected test PayPal request: "+url);
+  };
+  try{
+    const res=response();
+    await handler({method:"POST",body:{orderId:"TESTORDER1234",product:"template_pack"}},res);
+    assert.equal(res.statusCode,400);
+    assert.equal(res.body.error,"This PayPal order does not match the selected product.");
+    assert.equal(captureCalled,false);
+  }finally{
+    global.fetch=originalFetch;
+    for(const key of keys){if(previous[key]===undefined)delete process.env[key];else process.env[key]=previous[key];}
+  }
+});
