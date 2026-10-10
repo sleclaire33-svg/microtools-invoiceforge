@@ -16,7 +16,7 @@ The application is built as a browser-first static site with serverless payment 
    Browser input is not trusted for price. Product/amount/currency are rechecked before capture. Capture retries safely recognize an already-completed PayPal order.
 
 4. **Digital fulfillment** — IN PROGRESS  
-   Purchases receive expiring signed fulfillment URLs. The Template Pack now contains multiple practical copy-ready templates; Lifetime Pro includes a usable quick-start guide. A later product-packaging pass can turn these into richer downloadable assets.
+   Purchases receive expiring signed fulfillment URLs. The Template Pack now delivers 12 copy-ready client communication and admin templates. Lifetime Pro delivers a broader toolkit: invoice workflow, invoice QA checklist, quote-to-cash tracker, scope/quote templates, onboarding and handoff resources, payment follow-up guidance, and admin routines. Signed links expire after 24 hours; delivery pages are marked noindex. Confirm the delivered pages in a sandbox purchase before launch.
 
 5. **Webhook/reconciliation** — IN PROGRESS  
    PayPal webhook signature verification is present. Production launch should configure the webhook ID and test completed-capture events; persistent reconciliation is optional for the first low-volume release.
