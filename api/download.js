@@ -50,6 +50,7 @@ function lifetimePro(){
 }
 function page(product){return product==="template_pack"?templatePack():lifetimePro();}
 module.exports=async(req,res)=>{
+  if(req.method!=="GET")return res.status(405).send("Method not allowed.");
   const{product,exp,sig}=req.query||{},n=Number(exp);
   if(!PRODUCTS[product]||!Number.isSafeInteger(n)||n<Math.floor(Date.now()/1000)||!valid(product,n,String(sig)))return res.status(403).send("Download link expired or invalid.");
   res.setHeader("Content-Type","text/html; charset=utf-8");
