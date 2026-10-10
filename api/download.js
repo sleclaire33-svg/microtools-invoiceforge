@@ -28,7 +28,7 @@ function templatePack(){
   ["11. Client thank-you",'<p class="subject">Subject: Thank you for working with [BUSINESS NAME]</p><p>Hi [CLIENT NAME],</p><p>Thank you for trusting me with [PROJECT / SERVICE]. I appreciated working with you. If there is a next phase or a related need, feel free to reach out. Your feedback on the process is welcome.</p><p>Warmly,<br>[YOUR NAME]</p>'],
   ["12. Monthly admin checklist",'<ul class="checklist"><li>Match sent invoices to payment records.</li><li>Follow up on overdue balances professionally.</li><li>Save receipts and categorize business expenses.</li><li>Review upcoming renewals, subscriptions, and tax dates.</li><li>Back up invoices, agreements, and project approvals.</li><li>Review unpaid work and upcoming cash commitments.</li><li>Confirm any tax/accounting treatment with a qualified local professional.</li></ul>']
  ];
- return shell("Business Template Pack","12 editable client communication and admin templates. Replace bracketed prompts, review for your situation, then copy into your email or document app.",items.map(x=>sheet(x[0],x[1])).join(""));
+ return shell("InvoiceForge Template Pack","12 editable client communication and admin templates. Replace bracketed prompts, review for your situation, then copy into your email or document app.",items.map(x=>sheet(x[0],x[1])).join(""));
 }
 function lifetimePro(){
  const items=[
