@@ -69,7 +69,7 @@ test("download accepts a correctly signed, unexpired fulfillment link",async()=>
     const exp=Math.floor(Date.now()/1000)+600;
     const sig=crypto.createHmac("sha256",secret).update(product+"."+exp).digest("hex");
     const res=response();
-    await handler({query:{product,exp:String(exp),sig}},res);
+    await handler({method:"GET",query:{product,exp:String(exp),sig}},res);
     assert.equal(res.statusCode,200);
     assert.match(res.headers["Content-Type"],/text\/html/i);
     assert.match(res.body,/InvoiceForge Template Pack/);
@@ -114,7 +114,7 @@ test("captured order fulfillment URL is accepted by the download verifier",async
     assert.equal(captureRes.body.status,"COMPLETED");
     const downloadUrl=new URL(captureRes.body.downloadUrl,"https://example.test");
     const downloadRes=response();
-    await downloadHandler({query:Object.fromEntries(downloadUrl.searchParams.entries())},downloadRes);
+    await downloadHandler({method:"GET",query:Object.fromEntries(downloadUrl.searchParams.entries())},downloadRes);
     assert.equal(downloadRes.statusCode,200);
     assert.match(downloadRes.body,/InvoiceForge Template Pack/);
   }finally{
@@ -130,11 +130,14 @@ test("download rejects expired or forged fulfillment links",async()=>{
   const previous=process.env.FULFILLMENT_SIGNING_SECRET;
   process.env.FULFILLMENT_SIGNING_SECRET="unit-test-only-secret-not-for-production";
   try{
+    const wrongMethod=response();
+    await handler({method:"POST",query:{product:"template_pack",exp:String(Math.floor(Date.now()/1000)+600),sig:"0".repeat(64)}},wrongMethod);
+    assert.equal(wrongMethod.statusCode,405);
     const expired=response();
-    await handler({query:{product:"template_pack",exp:"1",sig:"0".repeat(64)}},expired);
+    await handler({method:"GET",query:{product:"template_pack",exp:"1",sig:"0".repeat(64)}},expired);
     assert.equal(expired.statusCode,403);
     const forged=response();
-    await handler({query:{product:"template_pack",exp:String(Math.floor(Date.now()/1000)+600),sig:"0".repeat(64)}},forged);
+    await handler({method:"GET",query:{product:"template_pack",exp:String(Math.floor(Date.now()/1000)+600),sig:"0".repeat(64)}},forged);
     assert.equal(forged.statusCode,403);
   }finally{
     if(previous===undefined)delete process.env.FULFILLMENT_SIGNING_SECRET;
@@ -156,7 +159,7 @@ test("paid downloads deliver substantial product-specific content",async()=>{
       const exp=Math.floor(Date.now()/1000)+600;
       const sig=crypto.createHmac("sha256",secret).update(product+"."+exp).digest("hex");
       const res=response();
-      await handler({query:{product,exp:String(exp),sig}},res);
+      await handler({method:"GET",query:{product,exp:String(exp),sig}},res);
       assert.equal(res.statusCode,200);
       assert.match(res.body,expected);
       assert.match(res.body,/Print \/ Save as PDF/);
