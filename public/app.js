@@ -86,6 +86,18 @@ invoiceInputIds.forEach(id=>{
   const element=$(id);
   if(element)element.addEventListener("input",previewInvoice);
 });
+const itemPreset=$("itemPreset");
+if(itemPreset){
+  itemPreset.addEventListener("change",()=>{
+    if(itemPreset.value!=="Other / custom"){
+      $("itemName").value=itemPreset.value;
+    }else{
+      $("itemName").value="";
+      $("itemName").focus();
+    }
+    previewInvoice();
+  });
+}
 previewInvoice();
 
 async function api(path,body){
