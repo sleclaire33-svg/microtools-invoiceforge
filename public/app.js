@@ -243,4 +243,26 @@ async function initPayPal(config){
   }
 }
 
+
+const packageSelector=document.getElementById("packageSelector");
+if(packageSelector){
+  const summary=document.getElementById("packageSummary");
+  const descriptions={
+    free:"Free access includes the QR generator, percentage calculator, text counter, and basic invoice builder with PDF printing. No purchase required.",
+    template_pack:"Template Pack · $14.99 one-time. Includes 12 reusable client emails, a project quote, project updates, payment reminders, and a monthly admin checklist.",
+    lifetime_pro:"Lifetime Pro · $29 one-time. Includes a repeatable invoice workflow, quality-control checklist, quote-to-cash tracker structure, project templates, follow-up sequence, and admin routines."
+  };
+  const updatePackage=()=>{summary.textContent=descriptions[packageSelector.value]||descriptions.free;};
+  packageSelector.addEventListener("change",updatePackage);
+  document.getElementById("packageContinue").addEventListener("click",()=>{
+    const target=document.getElementById(packageSelector.value==="free"?"freeProduct":packageSelector.value);
+    if(target)target.scrollIntoView({behavior:"smooth",block:"center"});
+    if(packageSelector.value!=="free"){
+      const details=target?.querySelector("details");
+      if(details)details.open=true;
+    }
+  });
+  updatePackage();
+}
+
 setupPayPal();
