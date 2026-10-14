@@ -4,8 +4,8 @@ Hosted-first web app with free browser tools, InvoiceForge, and PayPal-powered c
 
 ## Products
 - Free tools
-- Template Pack — $14.99
-- Lifetime Pro — $29
+- Get-Paid-Faster Starter Kit — $14.99 (one-time static resources)
+- Workflow Resource Bundle — $29 (one-time static resources; no future software features)
 
 ## Payment strategy
 PayPal is the required payment/settlement provider. The checkout is designed to show eligible PayPal-supported payment options rather than forcing every buyer to use a PayPal account, including:
