@@ -15,6 +15,7 @@ jobs:
       - name: Check JavaScript syntax
         run: |
           node --check app.js
+          node --check public/follow-up.js
           for f in api/*.js netlify/functions/*.js tests/*.js; do node --check "$f"; done
       - name: Run API security and fulfillment tests
         run: node --test tests/*.test.js

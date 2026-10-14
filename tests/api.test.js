@@ -174,10 +174,10 @@ test("paid downloads deliver substantial product-specific content",async()=>{
 
 test("order creation uses server-defined product price and currency",async()=>{
   const handler=require("../api/create-order");
-  const keys=["PAYPAL_CLIENT_ID","PAYPAL_CLIENT_SECRET","PAYPAL_ENV","PAYPAL_CURRENCY"];
+  const keys=["PAYPAL_CLIENT_ID","PAYPAL_CLIENT_SECRET","PAYPAL_ENV","PAYPAL_CURRENCY","FULFILLMENT_SIGNING_SECRET"];
   const previous=Object.fromEntries(keys.map(key=>[key,process.env[key]]));
   const originalFetch=global.fetch;
-  Object.assign(process.env,{PAYPAL_CLIENT_ID:"sandbox-client-id",PAYPAL_CLIENT_SECRET:"sandbox-client-secret",PAYPAL_ENV:"sandbox",PAYPAL_CURRENCY:"USD"});
+  Object.assign(process.env,{PAYPAL_CLIENT_ID:"sandbox-client-id",PAYPAL_CLIENT_SECRET:"sandbox-client-secret",PAYPAL_ENV:"sandbox",PAYPAL_CURRENCY:"USD",FULFILLMENT_SIGNING_SECRET:"unit-test-only-secret-not-for-production"});
   let orderRequest;
   global.fetch=async(url,options={})=>{
     if(String(url).endsWith("/v1/oauth2/token"))return{ok:true,status:200,json:async()=>({access_token:"test-access-token"})};
