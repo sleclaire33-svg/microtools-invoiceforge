@@ -72,7 +72,7 @@ test("download accepts a correctly signed, unexpired fulfillment link",async()=>
     await handler({method:"GET",query:{product,exp:String(exp),sig}},res);
     assert.equal(res.statusCode,200);
     assert.match(res.headers["Content-Type"],/text\/html/i);
-    assert.match(res.body,/InvoiceForge Template Pack/);
+    assert.match(res.body,/InvoiceForge Get-Paid-Faster Starter Kit/);
   }finally{
     if(previous===undefined)delete process.env.FULFILLMENT_SIGNING_SECRET;
     else process.env.FULFILLMENT_SIGNING_SECRET=previous;
@@ -116,7 +116,7 @@ test("captured order fulfillment URL is accepted by the download verifier",async
     const downloadRes=response();
     await downloadHandler({method:"GET",query:Object.fromEntries(downloadUrl.searchParams.entries())},downloadRes);
     assert.equal(downloadRes.statusCode,200);
-    assert.match(downloadRes.body,/InvoiceForge Template Pack/);
+    assert.match(downloadRes.body,/InvoiceForge Get-Paid-Faster Starter Kit/);
   }finally{
     global.fetch=originalFetch;
     for(const key of keys){
