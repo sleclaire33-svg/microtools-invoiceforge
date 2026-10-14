@@ -86,7 +86,36 @@ invoiceInputIds.forEach(id=>{
   const element=$(id);
   if(element)element.addEventListener("input",previewInvoice);
 });
+const itemPreset=$("itemPreset");
+if(itemPreset){
+  itemPreset.addEventListener("change",()=>{
+    if(itemPreset.value!=="Other / custom"){
+      $("itemName").value=itemPreset.value;
+    }else{
+      $("itemName").value="";
+      $("itemName").focus();
+    }
+    previewInvoice();
+  });
+}
 previewInvoice();
+
+const exampleButton=$("loadInvoiceExample");
+if(exampleButton){
+  exampleButton.addEventListener("click",()=>{
+    const example={
+      fromName:"Northstar Design Studio",fromEmail:"billing@example.com",
+      clientName:"Jordan Lee",clientEmail:"jordan@example.com",
+      invoiceNo:"INV-1042",invoiceDate:new Date().toISOString().slice(0,10),
+      dueDate:"",itemPreset:"Design work",itemName:"Brand identity design",
+      itemQty:"1",itemPrice:"450",tax:"0",discount:"5",currency:"USD",
+      notes:"Payment due within 14 days. Thank you for your business."
+    };
+    Object.entries(example).forEach(([id,value])=>{const el=$(id);if(el)el.value=value;});
+    previewInvoice();
+    $("invoicePreview").scrollIntoView({behavior:"smooth",block:"center"});
+  });
+}
 
 async function api(path,body){
   const response=await fetch(path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
@@ -229,6 +258,28 @@ async function initPayPal(config){
     console.error(error);
     setCheckoutStatus("PayPal checkout could not be initialized. No payment has been taken.");
   }
+}
+
+
+const packageSelector=document.getElementById("packageSelector");
+if(packageSelector){
+  const summary=document.getElementById("packageSummary");
+  const descriptions={
+    free:"Free access includes the QR generator, percentage calculator, text counter, and basic invoice builder with PDF printing. No purchase required.",
+    template_pack:"Template Pack · $14.99 one-time. Includes 12 reusable client emails, a project quote, project updates, payment reminders, and a monthly admin checklist.",
+    lifetime_pro:"Lifetime Pro · $29 one-time. Includes a repeatable invoice workflow, quality-control checklist, quote-to-cash tracker structure, project templates, follow-up sequence, and admin routines."
+  };
+  const updatePackage=()=>{summary.textContent=descriptions[packageSelector.value]||descriptions.free;};
+  packageSelector.addEventListener("change",updatePackage);
+  document.getElementById("packageContinue").addEventListener("click",()=>{
+    const target=document.getElementById(packageSelector.value==="free"?"freeProduct":packageSelector.value);
+    if(target)target.scrollIntoView({behavior:"smooth",block:"center"});
+    if(packageSelector.value!=="free"){
+      const details=target?.querySelector("details");
+      if(details)details.open=true;
+    }
+  });
+  updatePackage();
 }
 
 setupPayPal();
