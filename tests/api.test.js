@@ -153,7 +153,7 @@ test("paid downloads deliver substantial product-specific content",async()=>{
   process.env.FULFILLMENT_SIGNING_SECRET=secret;
   try{
     for(const [product,expected] of [
-      ["template_pack",/12 editable client communication and admin templates/],
+      ["template_pack",/12 reusable client and payment templates/],
       ["lifetime_pro",/Quote-to-cash tracker/]
     ]){
       const exp=Math.floor(Date.now()/1000)+600;
