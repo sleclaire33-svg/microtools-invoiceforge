@@ -1,5 +1,5 @@
 const crypto=require("crypto");
-const PRODUCTS={template_pack:"MicroTools Hub Template Pack",lifetime_pro:"InvoiceForge Lifetime Pro"};
+const PRODUCTS={template_pack:"InvoiceForge Get-Paid-Faster Starter Kit",lifetime_pro:"InvoiceForge Workflow Resource Bundle"};
 function valid(product,exp,sig){
   const secret=process.env.FULFILLMENT_SIGNING_SECRET;
   if(!secret)return false;
@@ -28,7 +28,7 @@ function templatePack(){
   ["11. Client thank-you",'<p class="subject">Subject: Thank you for working with [BUSINESS NAME]</p><p>Hi [CLIENT NAME],</p><p>Thank you for trusting me with [PROJECT / SERVICE]. I appreciated working with you. If there is a next phase or a related need, feel free to reach out. Your feedback on the process is welcome.</p><p>Warmly,<br>[YOUR NAME]</p>'],
   ["12. Monthly admin checklist",'<ul class="checklist"><li>Match sent invoices to payment records.</li><li>Follow up on overdue balances professionally.</li><li>Save receipts and categorize business expenses.</li><li>Review upcoming renewals, subscriptions, and tax dates.</li><li>Back up invoices, agreements, and project approvals.</li><li>Review unpaid work and upcoming cash commitments.</li><li>Confirm any tax/accounting treatment with a qualified local professional.</li></ul>']
  ];
- return shell("InvoiceForge Template Pack","12 editable client communication and admin templates. Replace bracketed prompts, review for your situation, then copy into your email or document app.",items.map(x=>sheet(x[0],x[1])).join(""));
+ return shell("InvoiceForge Get-Paid-Faster Starter Kit","12 reusable client and payment templates for clearer requests, reminders, quotes, and project updates. Replace bracketed prompts, review for your situation, then copy into your email or document app.",items.map(x=>sheet(x[0],x[1])).join(""));
 }
 function lifetimePro(){
  const items=[
@@ -46,7 +46,7 @@ function lifetimePro(){
   ["Simple pricing sanity check",'<p>Estimate a project price using:</p><p><strong>Estimated hours × target hourly rate + direct project costs + contingency</strong></p><p>Then compare the result with the client value, scope uncertainty, market positioning, and your capacity. For a fixed-price project, define assumptions and change control. For a target effective rate, calculate: <strong>(project revenue − direct project costs) ÷ actual hours</strong>. This is a planning aid, not tax or financial advice.</p>'],
   ["Recordkeeping and privacy basics",'<ul><li>Store invoice PDFs, agreements, and receipts in a backed-up, access-controlled location.</li><li>Use consistent filenames, such as <em>YYYY-MM-DD_Client_Invoice-123.pdf</em>.</li><li>Keep payment records from your actual provider or bank; an invoice marked paid is not proof of settlement.</li><li>Collect only client information you need and share files only with intended recipients.</li><li>Use retention periods and tax-record practices appropriate to your jurisdiction.</li><li>Never place payment-card data or account passwords in invoice notes.</li></ul>']
  ];
- return shell("InvoiceForge Lifetime Pro Toolkit","A practical invoice workflow, client communication templates, project controls, and monthly admin checklists to help run a small service business.",items.map(x=>sheet(x[0],x[1])).join(""));
+ return shell("InvoiceForge Workflow Resource Bundle Toolkit","A practical invoice workflow, client communication templates, project controls, and monthly admin checklists to help run a small service business.",items.map(x=>sheet(x[0],x[1])).join(""));
 }
 function page(product){return product==="template_pack"?templatePack():lifetimePro();}
 module.exports=async(req,res)=>{
