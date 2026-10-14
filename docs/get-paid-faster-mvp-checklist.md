@@ -21,9 +21,9 @@ This checklist reflects the product direction in the get-paid-faster strategy. I
 - [ ] Verify local storage quota/error behavior and browser privacy limitations.
 - [ ] Check keyboard navigation, visible focus, form labels, screen-reader status updates, and color contrast.
 - [ ] Verify that homepage links and navigation work.
-- [ ] Verify the production API config and API routes. The prior production 404 must be resolved independently of deploy-preview behavior.
+- [ ] Verify the production API config and API routes. The prior production 404 must be resolved independently of deploy-preview behavior; a forced rewrite was added to the API redirects, but production verification is still required.
 - [ ] Complete a full PayPal Sandbox purchase, capture, signed delivery, webhook, and failure/retry test before accepting real money.
-- [ ] Confirm legal pages, support contact, refund handling, and privacy wording accurately describe local storage and the actual product.
+- [ ] Confirm legal pages, support contact, refund handling, and privacy wording accurately describe local storage and the actual product. Legal copy has been updated in this branch; review the final wording before launch.
 - [ ] Do not introduce subscription billing until repeated use and willingness to pay have been validated.
 
 ## Pricing and offers
