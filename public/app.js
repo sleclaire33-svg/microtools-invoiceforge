@@ -100,6 +100,23 @@ if(itemPreset){
 }
 previewInvoice();
 
+const exampleButton=$("loadInvoiceExample");
+if(exampleButton){
+  exampleButton.addEventListener("click",()=>{
+    const example={
+      fromName:"Northstar Design Studio",fromEmail:"billing@example.com",
+      clientName:"Jordan Lee",clientEmail:"jordan@example.com",
+      invoiceNo:"INV-1042",invoiceDate:new Date().toISOString().slice(0,10),
+      dueDate:"",itemPreset:"Design work",itemName:"Brand identity design",
+      itemQty:"1",itemPrice:"450",tax:"0",discount:"5",currency:"USD",
+      notes:"Payment due within 14 days. Thank you for your business."
+    };
+    Object.entries(example).forEach(([id,value])=>{const el=$(id);if(el)el.value=value;});
+    previewInvoice();
+    $("invoicePreview").scrollIntoView({behavior:"smooth",block:"center"});
+  });
+}
+
 async function api(path,body){
   const response=await fetch(path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
   const data=await response.json().catch(()=>({}));
