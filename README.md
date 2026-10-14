@@ -4,8 +4,8 @@ Hosted-first web app with free browser tools, InvoiceForge, and PayPal-powered c
 
 ## Products
 - Free tools
-- Template Pack — $14.99
-- Lifetime Pro — $29
+- Get-Paid-Faster Starter Kit — $14.99 (one-time static resources)
+- Workflow Resource Bundle — $29 (one-time static resources; no future software features)
 
 ## Payment strategy
 PayPal is the required payment/settlement provider. The checkout is designed to show eligible PayPal-supported payment options rather than forcing every buyer to use a PayPal account, including:
@@ -28,7 +28,7 @@ FULFILLMENT_SIGNING_SECRET
 Never commit PayPal secrets or the fulfillment signing secret.
 
 ## Fulfillment
-Successful PayPal captures return a time-limited signed delivery URL. The Template Pack is delivered as a browser-based printable template document; customers can use Print → Save as PDF.
+Successful PayPal captures return a time-limited signed delivery URL. The Get-Paid-Faster Starter Kit is delivered as a browser-based printable template document; customers can use Print → Save as PDF.
 
 The current fulfillment flow is intentionally lightweight for the MVP. Before public launch, run a complete PayPal Sandbox purchase and verify order creation, buyer approval, capture, signed delivery, webhook behavior, and refund handling.
 

@@ -72,7 +72,7 @@ test("download accepts a correctly signed, unexpired fulfillment link",async()=>
     await handler({method:"GET",query:{product,exp:String(exp),sig}},res);
     assert.equal(res.statusCode,200);
     assert.match(res.headers["Content-Type"],/text\/html/i);
-    assert.match(res.body,/InvoiceForge Template Pack/);
+    assert.match(res.body,/InvoiceForge Get-Paid-Faster Starter Kit/);
   }finally{
     if(previous===undefined)delete process.env.FULFILLMENT_SIGNING_SECRET;
     else process.env.FULFILLMENT_SIGNING_SECRET=previous;
@@ -116,7 +116,7 @@ test("captured order fulfillment URL is accepted by the download verifier",async
     const downloadRes=response();
     await downloadHandler({method:"GET",query:Object.fromEntries(downloadUrl.searchParams.entries())},downloadRes);
     assert.equal(downloadRes.statusCode,200);
-    assert.match(downloadRes.body,/InvoiceForge Template Pack/);
+    assert.match(downloadRes.body,/InvoiceForge Get-Paid-Faster Starter Kit/);
   }finally{
     global.fetch=originalFetch;
     for(const key of keys){
@@ -153,7 +153,7 @@ test("paid downloads deliver substantial product-specific content",async()=>{
   process.env.FULFILLMENT_SIGNING_SECRET=secret;
   try{
     for(const [product,expected] of [
-      ["template_pack",/12 editable client communication and admin templates/],
+      ["template_pack",/12 reusable client and payment templates/],
       ["lifetime_pro",/Quote-to-cash tracker/]
     ]){
       const exp=Math.floor(Date.now()/1000)+600;
