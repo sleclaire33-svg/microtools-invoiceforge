@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Prepare polite payment reminders and keep a simple local list of invoices that need follow-up.">
+<link rel="canonical" href="https://invoiceforge.netlify.app/follow-up.html">
+<title>Payment Follow-up — InvoiceForge</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.followup-hero{padding:54px 7vw 36px;background:#fff}.followup-hero h1{font-size:clamp(34px,5vw,52px);max-width:850px;margin:.2em 0}.followup-hero .lead{max-width:780px}.followup-layout{padding:32px 7vw 70px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}.followup-panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;min-width:0}.followup-panel h2{font-size:24px;margin-top:0}.followup-form{display:grid;grid-template-columns:1fr 1fr;gap:14px}.followup-form label{display:grid;gap:6px;font-weight:650;font-size:14px}.followup-form input,.followup-form select,.followup-form textarea{width:100%;padding:11px;border:1px solid #d0d5dd;border-radius:8px;font:inherit;background:#fff;color:var(--ink)}.followup-form .wide{grid-column:1/-1}.followup-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.followup-list{display:grid;gap:12px;margin-top:18px}.followup-item{border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:8px}.followup-item-head{display:flex;justify-content:space-between;gap:12px;align-items:start}.followup-item h3{font-size:17px;margin:0}.followup-meta{font-size:13px;color:var(--muted)}.followup-item-actions{display:flex;gap:8px;flex-wrap:wrap}.followup-item-actions button{font:inherit;font-size:13px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer}.followup-output{white-space:pre-wrap;background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:16px;min-height:190px;overflow-wrap:anywhere}.followup-note{font-size:13px;color:var(--muted)}.status-pill{font-size:12px;font-weight:750;border-radius:99px;padding:4px 9px;background:#eef2ff;white-space:nowrap}.followup-empty{padding:18px;border:1px dashed #cbd5e1;border-radius:10px;color:var(--muted)}@media(max-width:850px){.followup-layout{grid-template-columns:1fr}}@media(max-width:520px){.followup-form{grid-template-columns:1fr}.followup-form .wide{grid-column:auto}.followup-panel{padding:17px}.followup-hero{padding-top:36px}}
+@media print{.nav,.followup-hero,.followup-form,.followup-actions,.followup-list,.no-print,footer{display:none!important}.followup-layout{display:block;padding:0}.followup-panel{border:0}.followup-output{border:0}}
+</style>
+</head>
+<body class="followup-page">
+<header class="nav"><a class="brand" href="index.html" style="text-decoration:none;color:inherit">InvoiceForge</a><nav aria-label="Main navigation"><a href="index.html#invoiceforge">Invoice builder</a><a href="samples.html">Free samples</a><a href="index.html#pricing">Resources</a></nav></header>
+<main>
+<section class="followup-hero"><p class="eyebrow">GET-PAID-FASTER TOOLKIT</p><h1>Make your next payment follow-up easier.</h1><p class="lead">Add an invoice, choose its current stage, and prepare a clear, professional reminder. Keep a simple follow-up list in this browser and export a backup when you need one.</p><div class="actions"><a class="button" href="index.html#invoiceforge">Create an invoice</a><button class="button" type="button" onclick="window.print()">Print reminder</button></div></section>
+<section class="followup-layout">
+<div class="followup-panel">
+<h2 id="formHeading">Add an invoice to follow up</h2>
+<form id="invoiceForm" class="followup-form">
+<input id="recordId" type="hidden">
+<label>Client or company<input id="client" required maxlength="120" placeholder="Jordan Lee"></label>
+<label>Invoice number<input id="invoiceNo" required maxlength="80" placeholder="INV-1042"></label>
+<label>Amount<input id="amount" type="number" required min="0" step="0.01" placeholder="450.00"></label>
+<label>Currency code<input id="currency" value="USD" required maxlength="3" pattern="[A-Za-z]{3}" title="Enter a three-letter currency code"></label>
+<label>Due date<input id="dueDate" type="date"></label>
+<label>Status<select id="status"><option value="upcoming">Due soon</option><option value="due">Due today</option><option value="overdue">Overdue</option><option value="paid">Paid</option></select></label>
+<label class="wide">Your name or business<input id="sender" maxlength="120" placeholder="Your name / business"></label>
+<label class="wide">Optional context<textarea id="context" rows="2" maxlength="500" placeholder="e.g. The work was completed on Friday."></textarea></label>
+<div class="wide followup-actions"><button class="button primary" type="submit">Save invoice</button><button class="button" id="resetForm" type="button">Clear form</button></div>
+</form>
+<p class="followup-note">Status is set by you; it is not verified against bank or payment records. Mark an invoice Paid when you have confirmed receipt.</p>
+</div>
+<div class="followup-panel">
+<h2>Draft a reminder</h2>
+<div class="followup-form">
+<label>Reminder stage<select id="draftStage"><option value="upcoming">Due soon</option><option value="due">Due today</option><option value="overdue">Overdue</option><option value="final">Final polite follow-up</option></select></label>
+<label>Tone<select id="tone"><option value="friendly">Friendly</option><option value="professional">Professional</option><option value="firm">Firm but polite</option></select></label>
+<label class="wide">Selected invoice<select id="recordSelect"><option value="">Enter invoice details or select a saved invoice</option></select></label>
+</div>
+<div id="reminderOutput" class="followup-output" aria-live="polite">Complete the form or select a saved invoice, then choose “Generate reminder”.</div>
+<div class="followup-actions no-print"><button class="button primary" id="generateReminder" type="button">Generate reminder</button><button class="button" id="copyReminder" type="button">Copy message</button></div>
+<p id="copyStatus" class="followup-note" role="status"></p>
+<p class="followup-note">The tool prepares text only. It does not email the client, verify payment, or send an automatic reminder. Adapt the message to your agreement and local requirements.</p>
+</div>
+<div class="followup-panel" style="grid-column:1/-1">
+<div class="followup-item-head"><div><h2 style="margin-bottom:4px">Your follow-up list</h2><p class="followup-note">Saved only in this browser on this device.</p></div><div class="followup-actions no-print" style="margin-top:0"><button class="button" id="exportData" type="button">Export backup</button><button class="button" id="importData" type="button">Import backup</button><input id="importFile" type="file" accept="application/json,.json" hidden><button class="button" id="clearData" type="button">Clear all</button></div></div>
+<div id="invoiceList" class="followup-list"><div class="followup-empty">No invoices saved yet. Add an invoice above to get started.</div></div>
+<p class="followup-note">Privacy: invoice and client details are stored in your browser's local storage and are not sent to our server by this tool. Anyone with access to this browser profile may be able to see them. Clearing browser data can erase the list, so export backups regularly. Do not enter sensitive personal or payment-card information.</p>
+</div>
+</section>
+</main>
+<footer style="padding:22px 7vw;background:#fff">InvoiceForge · <a href="index.html">Home</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="refunds.html">Refunds</a> · <a href="mailto:sleclaire33@gmail.com">Support</a></footer>
+<script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+const KEY="invoiceforge_followup_v1";
+let records=[];
+let selected=null;
+const money=(amount,currency)=>{const value=Number(amount);return (currency||"USD").toUpperCase()+" "+(Number.isFinite(value)?value.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}):"0.00")};
+function safeLoad(){try{const value=JSON.parse(localStorage.getItem(KEY)||"[]");records=Array.isArray(value)?value.filter(x=>x&&typeof x==="object"&&x.id):[]}catch(e){records=[];}}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(records));return true}catch(e){alert("Could not save in this browser. Storage may be unavailable or full. Export your data or remove some records.");return false;}}
+function escapeText(value){return String(value||"");}
+function statusLabel(value){return ({upcoming:"Due soon",due:"Due today",overdue:"Overdue",paid:"Paid"})[value]||"Due soon";}
+function dateLabel(value){if(!value)return "No due date";const d=new Date(value+"T12:00:00");return Number.isNaN(d.getTime())?value:d.toLocaleDateString();}
+function formRecord(){return {id:$("recordId").value||("inv_"+Date.now()+"_"+Math.random().toString(36).slice(2,8)),client:$("client").value.trim(),invoiceNo:$("invoiceNo").value.trim(),amount:Number($("amount").value),currency:$("currency").value.trim().toUpperCase(),dueDate:$("dueDate").value,status:$("status").value,sender:$("sender").value.trim(),context:$("context").value.trim(),updatedAt:new Date().toISOString()};}
+function resetForm(){ $("invoiceForm").reset();$("recordId").value="";$("currency").value="USD";$("formHeading").textContent="Add an invoice to follow up"; }
+function fillForm(r){$("recordId").value=r.id;$("client").value=r.client||"";$("invoiceNo").value=r.invoiceNo||"";$("amount").value=r.amount??"";$("currency").value=r.currency||"USD";$("dueDate").value=r.dueDate||"";$("status").value=r.status||"upcoming";$("sender").value=r.sender||"";$("context").value=r.context||"";$("formHeading").textContent="Edit invoice";$("draftStage").value=r.status==="paid"?"upcoming":r.status||"upcoming";$("recordSelect").value=r.id;selected=r;}
+function render(){
+ const list=$("invoiceList"),select=$("recordSelect");
+ list.replaceChildren();select.replaceChildren();
+ const placeholder=document.createElement("option");placeholder.value="";placeholder.textContent=records.length?"Choose a saved invoice":"No saved invoices yet";select.append(placeholder);
+ records.forEach(r=>{const opt=document.createElement("option");opt.value=r.id;opt.textContent=r.invoiceNo+" — "+r.client+" ("+statusLabel(r.status)+")";select.append(opt);
+ const card=document.createElement("article");card.className="followup-item";
+ const head=document.createElement("div");head.className="followup-item-head";
+ const title=document.createElement("div");const h=document.createElement("h3");h.textContent=r.invoiceNo+" · "+r.client;const meta=document.createElement("div");meta.className="followup-meta";meta.textContent=money(r.amount,r.currency)+" · Due: "+dateLabel(r.dueDate);title.append(h,meta);
+ const pill=document.createElement("span");pill.className="status-pill";pill.textContent=statusLabel(r.status);head.append(title,pill);card.append(head);
+ const actions=document.createElement("div");actions.className="followup-item-actions";
+ const make=(label,fn)=>{const b=document.createElement("button");b.type="button";b.textContent=label;b.addEventListener("click",fn);actions.append(b);};
+ make("Edit",()=>fillForm(r));
+ make("Draft reminder",()=>{fillForm(r);$("draftStage").value=r.status==="paid"?"upcoming":r.status;$("tone").value="friendly";generate();$("reminderOutput").scrollIntoView({behavior:"smooth",block:"center"});});
+ make("Mark paid",()=>{r.status="paid";r.updatedAt=new Date().toISOString();persist();render();});
+ make("Mark overdue",()=>{r.status="overdue";r.updatedAt=new Date().toISOString();persist();render();});
+ make("Delete",()=>{if(confirm("Delete "+r.invoiceNo+" from this browser?")){records=records.filter(x=>x.id!==r.id);if(selected&&selected.id===r.id)selected=null;persist();render();}});
+ card.append(actions);list.append(card);
+ });
+ if(!records.length){const empty=document.createElement("div");empty.className="followup-empty";empty.textContent="No invoices saved yet. Add an invoice above to get started.";list.append(empty);}
+}
+function stageText(stage,tone){
+ const text={
+ upcoming:{friendly:"Just a quick note that invoice [INVOICE] for [AMOUNT] is coming due on [DUE]. Please let me know if you need anything from me.",professional:"This is a reminder that invoice [INVOICE] for [AMOUNT] is due on [DUE]. Please let me know if any further information is required.",firm:"Please note that invoice [INVOICE] for [AMOUNT] is due on [DUE]. Kindly arrange payment by the due date or let me know promptly if there is an issue."},
+ due:{friendly:"A friendly reminder that invoice [INVOICE] for [AMOUNT] is due today. If payment is already arranged, thank you.",professional:"Invoice [INVOICE] for [AMOUNT] is due today ([DUE]). Please confirm when payment has been arranged.",firm:"Invoice [INVOICE] for [AMOUNT] is due today. Please arrange payment in line with our agreed terms or contact me if there is a problem."},
+ overdue:{friendly:"I’m following up on invoice [INVOICE] for [AMOUNT], which was due on [DUE]. If you have already paid, thank you; otherwise, could you share an expected payment date?",professional:"Our records indicate invoice [INVOICE] for [AMOUNT] was due on [DUE] and remains outstanding. Please advise when payment will be made.",firm:"Invoice [INVOICE] for [AMOUNT] was due on [DUE] and appears to remain unpaid. Please arrange payment or contact me promptly to discuss the status."},
+ final:{friendly:"I wanted to check in once more about invoice [INVOICE] for [AMOUNT], due on [DUE]. Please let me know the payment status or if there is anything we should discuss.",professional:"This is a further follow-up regarding outstanding invoice [INVOICE] for [AMOUNT], due on [DUE]. Please confirm the expected payment date or contact me to discuss any issue.",firm:"I am following up again on invoice [INVOICE] for [AMOUNT], due on [DUE]. Please respond with the payment status and expected resolution date. If you believe this notice is incorrect, let me know so we can reconcile our records."}
+ };
+ return text[stage]?.[tone]||text.overdue.professional;
+}
+function generate(){
+ let r=records.find(x=>x.id===$("recordSelect").value)||selected;
+ if(!r){const data=formRecord();if(!data.client||!data.invoiceNo||!Number.isFinite(data.amount)||$("amount").value===""){ $("reminderOutput").textContent="Please enter a client, invoice number and amount, then save the invoice or complete the form.";return;}r=data;}
+ if(r.status==="paid"){ $("reminderOutput").textContent="This invoice is marked paid. Confirm receipt before sending a reminder, or change its status if that is incorrect.";return;}
+ const stage=$("draftStage").value,tone=$("tone").value;
+ const amount=money(r.amount,r.currency),due=dateLabel(r.dueDate);
+ const greeting=tone==="friendly"?"Hi "+(r.client||"[CLIENT NAME]")+",":tone==="firm"?"Hello "+(r.client||"[CLIENT NAME]")+",":"Hello "+(r.client||"[CLIENT NAME]")+",";
+ const close=tone==="friendly"?"Thanks for your help.":tone==="firm"?"Thank you for your prompt attention.":"Thank you for your attention.";
+ let body=stageText(stage,tone).replaceAll("[INVOICE]",r.invoiceNo||"[INVOICE NUMBER]").replaceAll("[AMOUNT]",amount).replaceAll("[DUE]",due);
+ if(r.context)body+="\n\n"+r.context;
+ body=body.replace(/\bI’m\b/g,"I'm");
+ $("reminderOutput").textContent="Subject: "+(stage==="upcoming"?"Upcoming payment":stage==="due"?"Payment due today":stage==="final"?"Follow-up required":"Payment reminder")+": invoice "+(r.invoiceNo||"[INVOICE NUMBER]")+"\n\n"+greeting+"\n\n"+body+"\n\n"+close+"\n"+(r.sender||"[YOUR NAME / BUSINESS]");
+ selected=r;
+}
+$("invoiceForm").addEventListener("submit",e=>{e.preventDefault();const r=formRecord();if(!r.client||!r.invoiceNo||!Number.isFinite(r.amount)||$("amount").value==="")return;const idx=records.findIndex(x=>x.id===r.id);if(idx>=0)records[idx]=r;else records.unshift(r);if(persist()){selected=r;render();$("recordSelect").value=r.id;$("draftStage").value=r.status==="paid"?"upcoming":r.status;generate();resetForm();$("recordSelect").value=r.id;}});
+$("resetForm").addEventListener("click",resetForm);
+$("recordSelect").addEventListener("change",()=>{selected=records.find(x=>x.id===$("recordSelect").value)||null;if(selected){$("draftStage").value=selected.status==="paid"?"upcoming":selected.status; }});
+$("generateReminder").addEventListener("click",generate);
+$("tone").addEventListener("change",()=>{if($("reminderOutput").textContent!=="Complete the form or select a saved invoice, then choose “Generate reminder”.")generate();});
+$("draftStage").addEventListener("change",()=>{if($("recordSelect").value)generate();});
+$("copyReminder").addEventListener("click",async()=>{const text=$("reminderOutput").textContent;if(!text||text.startsWith("Complete the form")){$("copyStatus").textContent="Generate a reminder first.";return;}try{await navigator.clipboard.writeText(text);$("copyStatus").textContent="Reminder copied to clipboard.";}catch(e){const area=document.createElement("textarea");area.value=text;area.style.position="fixed";area.style.opacity="0";document.body.append(area);area.select();const ok=document.execCommand("copy");area.remove();$("copyStatus").textContent=ok?"Reminder copied to clipboard.":"Copy was blocked. Select the reminder text and copy it manually."; }});
+$("exportData").addEventListener("click",()=>{const blob=new Blob([JSON.stringify({format:"invoiceforge-followup-v1",exportedAt:new Date().toISOString(),records},null,2)],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="invoiceforge-followup-backup.json";a.click();URL.revokeObjectURL(url);});
+$("importData").addEventListener("click",()=>$("importFile").click());
+$("importFile").addEventListener("change",async e=>{const file=e.target.files&&e.target.files[0];if(!file)return;try{const data=JSON.parse(await file.text());const incoming=Array.isArray(data)?data:data.records;if(!Array.isArray(incoming))throw Error("Invalid backup");const valid=incoming.filter(r=>r&&typeof r.id==="string"&&typeof r.client==="string"&&typeof r.invoiceNo==="string"&&Number.isFinite(Number(r.amount))&&["upcoming","due","overdue","paid"].includes(r.status));if(!confirm("Import "+valid.length+" valid records? Existing records with the same ID will be replaced."))return;for(const r of valid){const i=records.findIndex(x=>x.id===r.id);if(i>=0)records[i]=r;else records.push(r);}if(persist()){render();alert("Backup imported.");}}catch(err){alert("Could not import this backup. Please choose a valid InvoiceForge JSON backup.");}finally{e.target.value="";}});
+$("clearData").addEventListener("click",()=>{if(confirm("Delete all InvoiceForge follow-up records stored in this browser? Export a backup first if you may need them.")){records=[];selected=null;persist();render();resetForm();$("reminderOutput").textContent="Complete the form or select a saved invoice, then choose “Generate reminder”."; $("copyStatus").textContent="";}});
+safeLoad();render();
+})();
+</script>
+</body>
+</html>
