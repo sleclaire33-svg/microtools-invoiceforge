@@ -196,14 +196,14 @@ async function initPayPal(config){
           showPaid(result);
         }catch(error){
           console.error(error);
-          setCheckoutStatus("Your payment may have been approved, but confirmation is still pending. PayPal order ID: "+orderId+". Please contact sleclaire33@gmail.com before trying again.");
+          setCheckoutStatus("Your payment may have been approved, but confirmation is still pending. PayPal order ID: "+orderId+". Please contact sean@microtoolsstudio.com before trying again.");
           throw error;
         }
       };
       const onCancel=()=>setCheckoutStatus("Payment cancelled. No purchase was completed.");
       const onError=error=>{
         console.error(error);
-        setCheckoutStatus("Payment could not be completed. Please try again or contact sleclaire33@gmail.com if the issue continues.");
+        setCheckoutStatus("Payment could not be completed. Please try again or contact sean@microtoolsstudio.com if the issue continues.");
       };
 
       if(methods.isEligible("paypal")){
