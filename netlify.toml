@@ -5,6 +5,12 @@
   directory = "netlify/functions"
 
 [[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/api/create-order"
   to = "/.netlify/functions/create-order"
   status = 200
