@@ -31,7 +31,7 @@ The application is built as a browser-first static site with serverless payment 
    GitHub Actions checks JavaScript syntax and verifies the Netlify public copy stays synchronized with the root static files.
 
 9. **Legal/contact pages** — BLOCKED ON BUSINESS DETAILS  
-   Privacy, Terms, and Refund pages exist. The site currently displays `sleclaire33@gmail.com` as the support contact; confirm it is monitored for customer requests and provide the business identity/jurisdiction needed to finalize legal disclosures before live sales.
+   Privacy, Terms, and Refund pages exist. The site currently displays `sean@microtoolsstudio.com` as the support contact; confirm it is monitored for customer requests and provide the business identity/jurisdiction needed to finalize legal disclosures before live sales.
 
 10. **SEO / trust / launch polish** — IN PROGRESS  
     Core title, description, responsive layout, legal navigation, and security headers are present. Canonical URLs, Open Graph URLs, robots.txt, and sitemap now use `microtools-invoiceforge.netlify.app`; replace them after a final brand and custom domain are selected.
