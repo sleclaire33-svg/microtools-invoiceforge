@@ -31,5 +31,5 @@ jobs:
         run: |
           test -s public/robots.txt
           test -s public/sitemap.xml
-          grep -q "https://invoiceforge.netlify.app/sitemap.xml" public/robots.txt
-          grep -q "https://invoiceforge.netlify.app/" public/sitemap.xml
+          grep -q "https://microtools-invoiceforge.netlify.app/sitemap.xml" public/robots.txt
+          grep -q "https://microtools-invoiceforge.netlify.app/" public/sitemap.xml
