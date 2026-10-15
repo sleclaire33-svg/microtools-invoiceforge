@@ -20,13 +20,17 @@ Build Micro Tools Studio as the umbrella brand, with InvoiceForge as the first p
 - [ ] Reuse shared utilities and server-side payment/fulfillment logic; never trust client-submitted prices.
 - [ ] Keep each tool useful without an account where feasible.
 
-### Stage 3 — Build the first companion apps
-Priority order:
-1. Project Profitability Calculator — estimate revenue, costs, time, and margin.
-2. Retainer Pricing Planner — model monthly capacity, included hours, overage rates, and margin.
-3. Service Estimate Builder — estimate labor/materials, markup, tax assumptions, and customer-facing totals.
+### Stage 3 — Build the five refined companion products
+Detailed MVP requirements and acceptance checks are in [`docs/FIVE_COMPANION_PRODUCTS.md`](docs/FIVE_COMPANION_PRODUCTS.md).
 
-Each app must be tested, clearly labeled as an estimate/planning aid where appropriate, and reviewed for calculation correctness before launch.
+Priority order after InvoiceForge passes its launch gates:
+1. Client Website QA & Accessibility Report Builder — directly complements the existing freelancer tools.
+2. AI & Software Subscription Cost Optimizer — calculations and editable comparisons with minimal integration burden.
+3. Tutor Lesson Follow-Up & Progress Report Builder — turns one lesson record into several editable outputs.
+4. New-Hire Onboarding Plan Builder — generates editable onboarding timelines and checklists.
+5. Rental Turnover & Inspection Report Builder — produces room-by-room reports with optional photos and cost estimates.
+
+Build one at a time, test it, and validate demand before proceeding. These are product candidates, not revenue forecasts. Project Profitability Calculator, Retainer Pricing Planner, and Service Estimate Builder remain additional freelancer/service-business candidates for later prioritization.
 
 ### Stage 4 — Assemble the first paid bundle
 - [ ] Create a Freelancer Business Toolkit landing page.
@@ -56,7 +60,8 @@ Each niche should have a coherent set of free tools, paid resources, a landing p
 - Avoid new recurring infrastructure costs unless they solve a demonstrated need.
 
 ## Immediate next actions
-1. Verify the live homepage and deployment behavior.
-2. Validate Sandbox checkout and delivery.
+1. Verify the live homepage and deployment behavior; root-route issue remains unverified.
+2. Fix PayPal Sandbox initialization and complete purchase/capture/webhook/download tests.
 3. Verify the homepage featured-tools section is live and each link opens the intended tool.
-4. Begin Project Profitability Calculator only after launch blockers and test coverage are addressed.
+4. Complete security, mobile, accessibility, legal/support, and product-delivery checks.
+5. Start the Website QA & Accessibility Report Builder as the first companion product only after the launch gates pass.
