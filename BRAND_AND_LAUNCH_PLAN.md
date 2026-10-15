@@ -47,7 +47,7 @@ For the final two candidates:
 - Invoice product: **InvoiceForge**
 - Free utilities: QR Code Generator, Percentage Calculator, Text Counter, Invoice Builder
 - Paid products: Template Pack ($14.99); Lifetime Pro ($29)
-- Support: sleclaire33@gmail.com
+- Support: sean@microtoolsstudio.com
 - Core promise: useful, fast, browser-first tools for freelancers and small businesses.
 - Product message: “Create professional invoices in 30 seconds.”
 - Keep PayPal as the payment backbone. Do not promise Apple Pay or Google Pay until the live merchant setup has been verified.
