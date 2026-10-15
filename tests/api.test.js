@@ -113,6 +113,7 @@ test("captured order fulfillment URL is accepted by the download verifier",async
     assert.equal(captureRes.statusCode,200);
     assert.equal(captureRes.body.status,"COMPLETED");
     const downloadUrl=new URL(captureRes.body.downloadUrl,"https://example.test");
+    assert.equal(downloadUrl.pathname,"/.netlify/functions/download");
     const downloadRes=response();
     await downloadHandler({method:"GET",query:Object.fromEntries(downloadUrl.searchParams.entries())},downloadRes);
     assert.equal(downloadRes.statusCode,200);
