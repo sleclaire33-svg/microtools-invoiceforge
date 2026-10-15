@@ -1,6 +1,6 @@
-# MicroTools Hub + InvoiceForge
+# Micro Tools Studio — InvoiceForge
 
-Hosted-first web app with free browser tools, InvoiceForge, and PayPal-powered checkout.
+Micro Tools Studio is the working umbrella brand. InvoiceForge is the invoice product. This hosted-first web app offers free browser tools and PayPal-powered checkout.
 
 ## Products
 - Free tools
@@ -31,6 +31,14 @@ Never commit PayPal secrets or the fulfillment signing secret.
 Successful PayPal captures return a time-limited signed delivery URL. The Get-Paid-Faster Starter Kit is delivered as a browser-based printable template document; customers can use Print → Save as PDF.
 
 The current fulfillment flow is intentionally lightweight for the MVP. Before public launch, run a complete PayPal Sandbox purchase and verify order creation, buyer approval, capture, signed delivery, webhook behavior, and refund handling.
+
+## Brand and legal setup
+
+- Working public brand: **Micro Tools Studio**.
+- Product name: **InvoiceForge** (write as “Invoice Forge” in explanatory copy when helpful; keep existing technical identifiers and URLs unchanged for launch).
+- Operating plan: start as a sole proprietor to minimize startup costs, subject to confirming applicable Washington licensing, trade-name, local, and tax requirements.
+- Name screening is preliminary, not legal clearance. Do not claim trademark availability or register/file a trademark until federal, Washington, marketplace, and common-law searches have been reviewed.
+- Do not use “Micro Tools Studio” as a verified legal entity name. A sole proprietor’s legal identity and any required trade-name registration are separate.
 
 ## Hosting
 Vercel remains supported, but a Netlify fallback is included:

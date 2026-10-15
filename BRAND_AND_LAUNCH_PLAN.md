@@ -2,9 +2,9 @@
 
 Last reviewed: 2026-10-10
 
-## Decision status
+## Decision status — working brand selected
 
-Keep **MicroTools Hub** as the umbrella concept and **InvoiceForge** as the invoice product until a new umbrella name is approved and cleared. Do not change the public site, buy a domain, or create social accounts based only on a quick web search.
+Use **Micro Tools Studio** as the working umbrella brand and **InvoiceForge** as the invoice product. This is a practical working decision, not a legal clearance or confirmation that the name is available. Keep the existing Netlify URL and support email to avoid launch delays and new costs. A preliminary web search did not surface an obvious exact-match business, but it is not a comprehensive federal/state/common-law trademark search. Do not claim the name is conflict-free or spend money on a trademark/domain before launch.
 
 Naming requirements:
 - Distinctive 5–7 letter root plus a clear companion word (Tools, Works, Studio, or Labs).
@@ -43,7 +43,7 @@ For the final two candidates:
 
 ## Brand architecture
 
-- Umbrella brand: **[approved umbrella name]**
+- Umbrella brand: **Micro Tools Studio (working brand; clearance incomplete)**
 - Invoice product: **InvoiceForge**
 - Free utilities: QR Code Generator, Percentage Calculator, Text Counter, Invoice Builder
 - Paid products: Template Pack ($14.99); Lifetime Pro ($29)
