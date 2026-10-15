@@ -39,9 +39,9 @@ After changing environment variables, trigger a fresh Netlify deploy so the Func
 3. Create a webhook for `https://microtools-invoiceforge.netlify.app/.netlify/functions/webhook`; save its webhook ID as `PAYPAL_WEBHOOK_ID`.
 4. Subscribe at minimum to capture-completed, capture-denied, and capture-refunded events available for the app.
 5. Confirm `https://microtools-invoiceforge.netlify.app/.netlify/functions/config` reports `checkoutReady: true`, `environment: "sandbox"`, and `webhookConfigured: true`. It must never return a server secret.
-6. Use a sandbox buyer to purchase the $14.99 Template Pack.
+6. Use a sandbox buyer to purchase the $14.99 Get-Paid-Faster Starter Kit.
 7. Verify the order is captured in the sandbox business account and the returned purchase link opens the template page.
-8. Repeat for the $29 Lifetime Pro.
+8. Repeat for the $29 Workflow Resource Bundle.
 9. Verify cancellation does not show a successful purchase; a forged or expired download URL returns HTTP 403.
 10. Review Netlify function logs and GitHub Actions. Resolve any errors before switching environments.
 
