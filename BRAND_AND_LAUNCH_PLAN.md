@@ -77,7 +77,7 @@ Use the approved umbrella brand once cleared. Before then, use InvoiceForge/prod
 ### Reusable post copy
 
 **Launch post**
-“Meet InvoiceForge: a simpler way to prepare professional invoices. Draft an invoice, add your line items, review the totals, and print or save it as a PDF. You can also use our free QR generator, percentage calculator, and text counter. Optional resources: Template Pack ($14.99) and Lifetime Pro ($29). Try it here: https://microtools-invoiceforge.netlify.app/ — feedback welcome.”
+“Meet InvoiceForge: a simpler way to prepare professional invoices. Draft an invoice, add your line items, review the totals, and print or save it as a PDF. You can also use our free QR generator, percentage calculator, and text counter. Optional resources: Get-Paid-Faster Starter Kit ($14.99) and Workflow Resource Bundle ($29). Try it here: https://microtools-invoiceforge.netlify.app/ — feedback welcome.”
 
 **Invoice demo caption**
 “From blank page to invoice preview in a few steps. Add your business details, customer, line items, and payment terms, then review everything before printing or saving as PDF. Always double-check your figures and local tax requirements.”
