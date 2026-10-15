@@ -1,4 +1,4 @@
-# MicroTools Hub + InvoiceForge — Launch Checklist
+# Micro Tools Studio + InvoiceForge — Launch Checklist
 
 ## Current status
 
@@ -30,11 +30,11 @@ The application is built as a browser-first static site with serverless payment 
 8. **Automated validation** — DONE  
    GitHub Actions checks JavaScript syntax and verifies the Netlify public copy stays synchronized with the root static files.
 
-9. **Legal/contact pages** — BLOCKED ON BUSINESS DETAILS  
-   Privacy, Terms, and Refund pages exist. The site currently displays `sean@microtoolsstudio.com` as the support contact; confirm it is monitored for customer requests and provide the business identity/jurisdiction needed to finalize legal disclosures before live sales.
+9. **Legal/contact pages** — PARTIALLY BLOCKED  
+   Privacy, Terms, and Refund pages exist. The site displays `sean@microtoolsstudio.com`; mailbox monitoring still needs confirmation. Intended jurisdiction is Washington State, USA. The working public brand is **Micro Tools Studio** and the product is **InvoiceForge**. The low-cost plan is to operate initially as a sole proprietor, but the owner's legal identity, Washington business/trade-name licensing requirements, and applicable local/tax obligations must be confirmed before live sales. Do not imply the trade name or trademark is cleared merely because it is used on the site.
 
 10. **SEO / trust / launch polish** — IN PROGRESS  
-    Core title, description, responsive layout, legal navigation, and security headers are present. Canonical URLs, Open Graph URLs, robots.txt, and sitemap now use `microtools-invoiceforge.netlify.app`; replace them after a final brand and custom domain are selected.
+    Core title, description, responsive layout, legal navigation, and security headers are present. The working public brand is **Micro Tools Studio**, while the current product remains **InvoiceForge**. Canonical URLs, Open Graph URLs, robots.txt, and sitemap still use `microtools-invoiceforge.netlify.app`; keep this existing URL for launch and change only after a real custom domain is configured.
 
 11. **Production test + go-live** — NOT STARTED  
     After Netlify deployment and PayPal sandbox credentials are configured, test every checkout path, fulfillment link, expiry, cancellation/error path, mobile layout, print-to-PDF output, and webhook delivery. Only then switch PayPal to production credentials.
@@ -58,3 +58,12 @@ Never commit secrets to GitHub.
 - Configure and test the PayPal webhook before relying on it for production reconciliation.
 - Do not advertise Apple Pay or Google Pay as guaranteed options; PayPal eligibility varies by buyer, currency, device, and merchant configuration.
 
+
+## Low-cost Washington setup — do not treat as completed filings
+
+- Working brand: Micro Tools Studio; current product: InvoiceForge.
+- Intended initial structure: individual sole proprietor to minimize upfront cost; no LLC or corporation has been formed by this workflow.
+- Before accepting live payments, determine whether a Washington Business License Application, trade-name registration ($5 per name, plus applicable application/processing fees), city endorsement, or other local license is required. Official guidance: https://dor.wa.gov/open-business and https://dor.wa.gov/manage-business/grow-business/register-trade-names.
+- Search the exact and similar name in the Washington business/trademark systems and USPTO records, plus general web use. A preliminary web search found no obvious exact-match business result, but this is **not** comprehensive clearance and does not establish that the name is legally available. Official search guidance: https://www.uspto.gov/trademarks/search/comprehensive-clearance-search-similar-trademarks.
+- Do not pay for a trademark application, new domain, LLC, or rebrand as a launch prerequisite. Keep the existing Netlify hostname and support address for the initial launch.
+- Do not claim the legal owner name, trade-name registration, local license, mailbox monitoring, production payment setup, or live deployment has been verified unless evidence is obtained.
