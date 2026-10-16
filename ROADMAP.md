@@ -9,7 +9,7 @@ Build Micro Tools Studio as the umbrella brand, with InvoiceForge as the first p
 - [ ] Fix and verify the root homepage route on the Netlify production URL.
 - [ ] Feature the Quote & Scope Builder, Freelance Rate Calculator, and Client Kickoff Builder on the homepage.
 - [ ] Verify all tools work on mobile and desktop and provide clear copy/print feedback.
-- [ ] Complete PayPal Sandbox checkout, cancellation/error, fulfillment, signed-link expiry, and webhook tests.
+- [ ] Complete Lemon Squeezy Test-mode checkout, cancellation/error, receipt/file delivery, webhook-signature, duplicate-event, and refund tests.
 - [ ] Do not enable live payments until the user explicitly approves and the test checklist passes.
 - [ ] Make product limits, digital delivery, refund terms, and support contact clear.
 
@@ -56,12 +56,12 @@ Each niche should have a coherent set of free tools, paid resources, a landing p
 - Do not sell planned features as if they already exist.
 - Avoid subscriptions until ongoing recurring value exists.
 - Do not expose credentials or secrets in client code, commits, logs, or support requests.
-- Keep PayPal in Sandbox until explicit authorization to go live.
+- Keep Lemon Squeezy in Test mode until explicit authorization to go live.
 - Avoid new recurring infrastructure costs unless they solve a demonstrated need.
 
 ## Immediate next actions
 1. Verify the live homepage and deployment behavior; root-route issue remains unverified.
-2. Fix PayPal Sandbox initialization and complete purchase/capture/webhook/download tests.
+2. Integrate Lemon Squeezy hosted checkout, then complete Test-mode purchase, receipt/file delivery, webhook, and refund tests.
 3. Verify the homepage featured-tools section is live and each link opens the intended tool.
 4. Complete security, mobile, accessibility, legal/support, and product-delivery checks.
 5. Start the Website QA & Accessibility Report Builder as the first companion product only after the launch gates pass.
