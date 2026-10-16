@@ -22,19 +22,19 @@
 
 ## 3. Sandbox checkout and delivery
 
-Use only PayPal Sandbox buyer credentials and test products. Do not use a live buyer account or live payment credentials for this test.
+Use only Lemon Squeezy Test mode and test products. Do not use live payment credentials or real card details for testing.
 
-- [ ] Config endpoint reports `environment: sandbox` and `checkoutReady: true`.
-- [ ] Checkout initializes without JavaScript console errors.
-- [ ] Each paid product creates a PayPal Sandbox order at the expected fixed server-side price.
+- [ ] Test-mode products and checkout URLs are configured and match the expected product/variant IDs.
+- [ ] Hosted checkout opens and completes without JavaScript console errors.
+- [ ] Each paid product opens the correct Lemon Squeezy Test-mode checkout at the configured price.
 - [ ] Buyer cancellation returns to the page and no purchase is reported as complete.
-- [ ] A successful Sandbox approval is captured server-side.
+- [ ] A successful Test-mode purchase appears as paid in the Lemon Squeezy dashboard.
 - [ ] Capture rejects a mismatched product, amount, or currency.
-- [ ] Successful capture produces a signed, time-limited download URL and the correct resource opens.
-- [ ] Expired or tampered download signatures are rejected.
+- [ ] The customer receives the correct receipt and access to the correct product file.
+- [ ] Webhook signature validation rejects tampered payloads.
 - [ ] Failed capture and temporary service errors show clear messages and do not falsely report success.
 - [ ] A duplicate/retry after capture does not falsely charge or report failure when the order is already completed.
-- [ ] A test webhook is verified against the configured Sandbox webhook ID; invalid signatures are rejected.
+- [ ] Test-mode webhooks are verified against the configured signing secret; invalid signatures are rejected.
 - [ ] Support email and order-ID guidance work.
 
 ## 4. Content and trust
@@ -47,14 +47,14 @@ Use only PayPal Sandbox buyer credentials and test products. Do not use a live b
 
 ## 5. Production gate — requires explicit owner approval
 
-Do not switch `PAYPAL_ENV` to `production` or add production credentials until:
+Do not switch Lemon Squeezy to Live mode or add live credentials until:
 - All Sandbox checks above pass.
-- Production PayPal webhook is created and its webhook ID is configured in Netlify.
-- Production credentials and fulfillment signing secret are checked in Netlify without sharing them in chat.
+- Live-mode Lemon Squeezy webhook is created and its signing secret is configured in Netlify.
+- Live-mode API key and webhook signing secret are configured in Netlify without sharing them in chat.
 - Production product descriptions, refund terms, delivery, and support flow are reviewed.
 - The owner explicitly authorizes the live-payment switch.
 - A low-risk live transaction and refund procedure are planned and approved.
 
 ## Known verification boundary
 
-Repository/static checks can verify source structure, duplicate IDs, local links, and JavaScript syntax. They cannot prove the current Netlify deployment, PayPal account settings, live webhook configuration, or a successful Sandbox transaction. Those require the deployed site and PayPal Sandbox test.
+Repository/static checks can verify source structure, duplicate IDs, local links, and JavaScript syntax. They cannot prove the current Netlify deployment, Lemon Squeezy account settings, live webhook configuration, or a successful Test-mode transaction. Those require the deployed site and PayPal Sandbox test.
