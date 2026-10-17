@@ -1,5 +1,5 @@
 const $=id=>document.getElementById(id);
-const PRODUCTS={
+const PRODUCTS={https://microtoolsstudio.lemonsqueezy.com/checkout/buy/
   template_pack:{slot:"paypal-pack",venmoSlot:"venmo-pack",payLaterSlot:"paylater-pack",cardSlot:"card-pack"},
   lifetime_pro:{slot:"paypal-lifetime",venmoSlot:"venmo-lifetime",payLaterSlot:"paylater-lifetime",cardSlot:"card-lifetime"}
 };
