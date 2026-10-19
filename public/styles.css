@@ -17,39 +17,8 @@
 .showcase-disclaimer{margin:20px 0 0;color:var(--muted);font-size:12px;max-width:1000px}
 @media(max-width:850px){.showcase-grid{grid-template-columns:1fr}.showcase-wide{grid-column:auto;grid-template-columns:1fr}.mock-window{transform:none}.mock-table-head,.mock-table-row{font-size:10px}}
 @media(max-width:420px){.showcase-card{padding:18px}.mini-price-row{gap:5px}.mini-price-row>div{padding:9px 6px}.mini-price-row small,.mini-price-row span{font-size:9px}}
-/* Styling the logo in the header */
-.site-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #fff;
-}
 
-.logo-container {
-  display: flex;
-  align-items: center;
-}
-
-.logo-link {
-  text-decoration: none;
-  display: flex;
-}
-
-/* Hide the small logo by default (Desktop) */
-.logo-compact {
-  display: none;
-}
-
-/* Show only the small logo on narrow screens (Mobile) */
-@media (max-width: 768px) {
-  .logo-full {
-    display: none;
-  }
-  .logo-compact {
-    display: block;
-  }
-}/* Buyer confidence, product clarity, and sample resources */
+/* Buyer confidence, product clarity, and sample resources */
 .deliverable-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin:26px 0}
 .deliverable-grid .card{box-shadow:0 10px 30px rgba(26,55,105,.05)}
 .deliverable-grid ul{padding-left:21px}.deliverable-grid li{margin:7px 0}
