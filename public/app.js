@@ -1,5 +1,5 @@
 const $=id=>document.getElementById(id);
-const PRODUCTS={https://microtoolsstudio.lemonsqueezy.com/checkout/buy/
+const PRODUCTS={
   template_pack:{slot:"paypal-pack",venmoSlot:"venmo-pack",payLaterSlot:"paylater-pack",cardSlot:"card-pack"},
   lifetime_pro:{slot:"paypal-lifetime",venmoSlot:"venmo-lifetime",payLaterSlot:"paylater-lifetime",cardSlot:"card-lifetime"}
 };
@@ -182,7 +182,7 @@ async function initPayPal(config){
   try{
     const sdk=await window.paypal.createInstance({
       clientId:config.paypalClientId,
-      components:["paypal-payments","venmo-payments","googlepay-payments","applepay-payments"],
+      components:["paypal-payments","venmo-payments","googlepay-payments","applepay-payments","paypal-guest-payments"],
       pageType:"checkout",
       locale:navigator.language||"en-US"
     });
@@ -228,10 +228,16 @@ async function initPayPal(config){
         });
       }else $(slots.venmoSlot).replaceChildren();
 
-      // The current documented v6 setup does not list the legacy guest-payment component.
-      // Keep a clear note here rather than invoking an unsupported session API.
-      const cardSlot=$(slots.cardSlot);
-      if(cardSlot)cardSlot.textContent=methods.isEligible("paypal")?"Eligible card options may be offered inside PayPal checkout.":"";
+      if(methods.isEligible("card")){
+        const button=document.createElement("paypal-basic-card-button");
+        button.type="pay";
+        $(slots.cardSlot).replaceChildren(button);
+        const session=await sdk.createPayPalGuestOneTimePaymentSession({onApprove,onComplete:()=>{},onCancel,onError});
+        button.addEventListener("click",async()=>{
+          try{setCheckoutStatus("Opening secure card checkout…");await session.start({presentationMode:"auto"},createOrder())}
+          catch(error){console.error(error);setCheckoutStatus(error.message||"Card checkout could not start.")}
+        });
+      }else $(slots.cardSlot).replaceChildren();
 
       if(methods.isEligible("paylater")){
         const details=methods.getDetails("paylater");
