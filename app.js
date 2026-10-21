@@ -1,7 +1,10 @@
 const $=id=>document.getElementById(id);
 const PRODUCTS={
   template_pack:{slot:"paypal-pack",venmoSlot:"venmo-pack",payLaterSlot:"paylater-pack",cardSlot:"card-pack"},
-  lifetime_pro:{slot:"paypal-lifetime",venmoSlot:"venmo-lifetime",payLaterSlot:"paylater-lifetime",cardSlot:"card-lifetime"}
+  lifetime_pro:{slot:"paypal-lifetime",venmoSlot:"venmo-lifetime",payLaterSlot:"paylater-lifetime",cardSlot:"card-lifetime"},
+  late_payment_kit:{slot:"paypal-late-payment",venmoSlot:"venmo-late-payment",payLaterSlot:"paylater-late-payment",cardSlot:"card-late-payment"},
+  proposal_toolkit:{slot:"paypal-proposal",venmoSlot:"venmo-proposal",payLaterSlot:"paylater-proposal",cardSlot:"card-proposal"},
+  cashflow_planner:{slot:"paypal-cashflow",venmoSlot:"venmo-cashflow",payLaterSlot:"paylater-cashflow",cardSlot:"card-cashflow"}
 };
 
 function makeQR(){
@@ -267,7 +270,10 @@ if(packageSelector){
   const descriptions={
     free:"Free access includes the QR generator, percentage calculator, text counter, and basic invoice builder with PDF printing. No purchase required.",
     template_pack:"Get-Paid-Faster Starter Kit · $14.99 one-time. Includes 12 reusable client emails, a project quote, project updates, payment reminders, and a monthly admin checklist.",
-    lifetime_pro:"Workflow Resource Bundle · $29 one-time. Includes a repeatable invoice workflow, quality-control checklist, quote-to-cash tracker structure, project templates, follow-up sequence, and admin routines."
+    lifetime_pro:"Workflow Resource Bundle · $29 one-time. Includes a repeatable invoice workflow, quality-control checklist, quote-to-cash tracker structure, project templates, follow-up sequence, and admin routines.",
+    late_payment_kit:"Late-Payment Follow-Up Kit · $9.99 one-time. Includes staged reminder scripts, payment-plan prompts, dispute handling, and a follow-up checklist.",
+    proposal_toolkit:"Freelance Proposal Toolkit · $14.99 one-time. Includes proposal structure, scope, milestones, change control, and approval templates.",
+    cashflow_planner:"Small-Business Cash-Flow Planner · $12.99 one-time. Includes a weekly inflow/outflow planner, runway guide, and scenario prompts."
   };
   const updatePackage=()=>{summary.textContent=descriptions[packageSelector.value]||descriptions.free;};
   packageSelector.addEventListener("change",updatePackage);
