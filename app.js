@@ -183,11 +183,8 @@ async function setupPayPal(){
 
 async function initPayPal(config){
   try{
-    const tokenResponse=await fetch("/api/client-token",{method:"POST",headers:{"Accept":"application/json"}});
-    const tokenData=await tokenResponse.json().catch(()=>({}));
-    if(!tokenResponse.ok||!tokenData.clientToken)throw Error(tokenData.error||"PayPal checkout token could not be created.");
     const sdk=await window.paypal.createInstance({
-      clientToken:tokenData.clientToken,
+      clientId:config.paypalClientId,
       components:["paypal-payments","venmo-payments","googlepay-payments","applepay-payments","paypal-guest-payments"],
       pageType:"checkout",
       locale:navigator.language||"en-US"
