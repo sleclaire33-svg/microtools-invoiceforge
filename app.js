@@ -234,7 +234,9 @@ async function initPayPal(config){
       if(methods.isEligible("card")){
         const button=document.createElement("paypal-basic-card-button");
         button.type="pay";
-        $(slots.cardSlot).replaceChildren(button);
+        const container=document.createElement("paypal-basic-card-container");
+        container.append(button);
+        $(slots.cardSlot).replaceChildren(container);
         const session=await sdk.createPayPalGuestOneTimePaymentSession({onApprove,onComplete:()=>{},onCancel,onError});
         button.addEventListener("click",async()=>{
           try{setCheckoutStatus("Opening secure card checkout…");await session.start({presentationMode:"auto"},createOrder())}
@@ -244,7 +246,7 @@ async function initPayPal(config){
 
       if(methods.isEligible("paylater")){
         const details=methods.getDetails("paylater");
-        const button=document.createElement("paypal-pay-later-button");
+        const button=document.createElement("paylater-button");
         button.type="pay";
         if(details?.productCode)button.productCode=details.productCode;
         if(details?.countryCode)button.countryCode=details.countryCode;
