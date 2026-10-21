@@ -155,7 +155,7 @@ function setAllCheckoutSlots(message){
 
 async function setupPayPal(){
   try{
-    const response=await fetch("/.netlify/functions/config",{headers:{"Accept":"application/json"}});
+    const response=await fetch("/api/config",{headers:{"Accept":"application/json"}});
     if(!response.ok)throw Error("Checkout configuration could not be loaded.");
     const config=await response.json();
     if(!config.checkoutReady){
@@ -191,11 +191,11 @@ async function initPayPal(config){
     });
     const methods=await sdk.findEligibleMethods({currencyCode:config.currency});
     for(const [product,slots] of Object.entries(PRODUCTS)){
-      const createOrder=()=>api("/.netlify/functions/create-order",{product}).then(order=>({orderId:order.orderId}));
+      const createOrder=()=>api("/api/create-order",{product}).then(order=>({orderId:order.orderId}));
       const onApprove=async({orderId})=>{
         setCheckoutStatus("Confirming payment and preparing your purchase…");
         try{
-          const result=await api("/.netlify/functions/capture-order",{orderId,product});
+          const result=await api("/api/capture-order",{orderId,product});
           showPaid(result);
         }catch(error){
           console.error(error);
