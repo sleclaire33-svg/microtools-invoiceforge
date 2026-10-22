@@ -1,38 +1,47 @@
 {
   "invoiceforge_complete": {
     "filename": "InvoiceForge_Complete_Kit_v3.zip",
-    "bytes": 45301,
-    "sha256": "2e8623118d3c8bf83b9ac0d1c4511a18c7bfc946b2798a4291d7871b19ba8176",
+    "bytes": 57547,
+    "sha256": "b3b005577d0884ad33ef5f5991b3c5695ccb558751750458c316583d0cdcb301",
     "version": "3.0",
     "encryptedFile": "invoiceforge_complete.bin",
-    "iv": "dbaf48b719c5b913f05ba998",
-    "tag": "79cc91c58e76bc98c6e771b7f310dff6"
+    "iv": "ecf5b3a2bd4cf0bb29cac3ae",
+    "tag": "28c6e28deb5cc2ea0e7a1e03fcc45f09"
   },
   "certpai_complete": {
     "filename": "CertPai_Complete_Kit_v3.zip",
-    "bytes": 38918,
-    "sha256": "70565913ab8cc950be3bf12fc4b357529acc18544c48a0dc5f6bb851a9e0a08e",
+    "bytes": 39282,
+    "sha256": "216bbbbe2ee365f2aa544a71b6477956a0ee5750f1488adc43ec2c395f3cf32a",
     "version": "3.0",
     "encryptedFile": "certpai_complete.bin",
-    "iv": "e2dc80ae1e5c614eb13e31db",
-    "tag": "a6ec248b52416a8aede88f287d74f5cf"
+    "iv": "b0f7573bcd70298a76767e8d",
+    "tag": "590d9751965f9690edad32d7a0128dc2"
   },
   "siteintellect_complete": {
     "filename": "SiteIntellect_Complete_Kit_v3.zip",
-    "bytes": 40574,
-    "sha256": "d6b6fd56d701fa1eaf239f06e7e0217d7dd2e0bd368832c7a7412fb470f873e8",
+    "bytes": 40932,
+    "sha256": "12b83cc79f0e207683a5a375d344ecda5ad9403afbdf5b42c97d6b7638a042cc",
     "version": "3.0",
     "encryptedFile": "siteintellect_complete.bin",
-    "iv": "53cda7db58fbfc8d101cac3d",
-    "tag": "85a369ea01bae9fcad21c80cb78061ed"
+    "iv": "9be2ea72009f7a07d3ef9911",
+    "tag": "32f979ad613480c072f586ab0211c95d"
   },
   "claimproof_complete": {
     "filename": "ClaimProof_Complete_Kit_v3.zip",
-    "bytes": 41867,
-    "sha256": "76e13d54951cdb738ab40b9c3bad4cd35cec9a34ce2dc1d7b09d05dbf08866a4",
+    "bytes": 42230,
+    "sha256": "3704552ecb36a7801ea017b5f581bf6410c8f3840706108e80e498a60ab1521a",
     "version": "3.0",
     "encryptedFile": "claimproof_complete.bin",
-    "iv": "f8c9c33936bf32fe1e2ff237",
-    "tag": "940d61b1e007fa306b8ac5bf5d9bf653"
+    "iv": "d3ee868feb25277ed41ebb17",
+    "tag": "b34b4cf20c5fe647ec2eace70bea81b7"
+  },
+  "agencyos_complete": {
+    "filename": "AgencyOS_Complete_Kit_v3.zip",
+    "bytes": 41619,
+    "sha256": "a5743bda79fadb8365c7cbd8e8cc3862122ee590d293620e7b971f264fc29109",
+    "version": "3.0",
+    "encryptedFile": "agencyos_complete.bin",
+    "iv": "62144fa599701082ca9684c4",
+    "tag": "44e95cd8449651ff9e5351a735d487c3"
   }
 }
