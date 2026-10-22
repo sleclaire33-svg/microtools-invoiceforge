@@ -113,7 +113,7 @@ test("captured order fulfillment URL is accepted by the download verifier",async
     assert.equal(captureRes.statusCode,200);
     assert.equal(captureRes.body.status,"COMPLETED");
     const downloadUrl=new URL(captureRes.body.downloadUrl,"https://example.test");
-    assert.equal(downloadUrl.pathname,"/.netlify/functions/download");
+    assert.equal(downloadUrl.pathname,"/api/download");
     const downloadRes=response();
     await downloadHandler({method:"GET",query:Object.fromEntries(downloadUrl.searchParams.entries())},downloadRes);
     assert.equal(downloadRes.statusCode,200);
@@ -227,5 +227,35 @@ test("capture refuses a PayPal order with mismatched product amount before captu
   }finally{
     global.fetch=originalFetch;
     for(const key of keys){if(previous[key]===undefined)delete process.env[key];else process.env[key]=previous[key];}
+  }
+});
+
+test('catalog rejects inherited object keys without contacting PayPal', async()=>{
+  const handler=require('../api/create-order');
+  for(const product of ['__proto__','constructor','toString']){
+    const res=response();
+    await handler({method:'POST',body:{product}},res);
+    assert.equal(res.statusCode,400);
+    assert.equal(res.body.error,'Unknown product.');
+  }
+});
+
+test('every catalog product has a matching signed download',async()=>{
+  const products=require('../api/_products');
+  const handler=require('../api/download');
+  const old=process.env.FULFILLMENT_SIGNING_SECRET;
+  process.env.FULFILLMENT_SIGNING_SECRET='test-catalog-delivery-only';
+  try{
+    for(const [product,item] of Object.entries(products)){
+      const exp=Math.floor(Date.now()/1000)+600;
+      const sig=crypto.createHmac('sha256',process.env.FULFILLMENT_SIGNING_SECRET).update(product+'.'+exp).digest('hex');
+      const res=response();
+      await handler({method:'GET',query:{product,exp:String(exp),sig}},res);
+      assert.equal(res.statusCode,200);
+      assert.ok(res.body.includes(item.description));
+    }
+  }finally{
+    if(old===undefined)delete process.env.FULFILLMENT_SIGNING_SECRET;
+    else process.env.FULFILLMENT_SIGNING_SECRET=old;
   }
 });

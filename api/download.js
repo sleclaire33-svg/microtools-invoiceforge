@@ -1,5 +1,5 @@
 const crypto=require("crypto");
-const PRODUCTS={template_pack:"InvoiceForge Get-Paid-Faster Starter Kit",lifetime_pro:"InvoiceForge Workflow Resource Bundle",late_payment_kit:"Late-Payment Follow-Up Kit",proposal_toolkit:"Freelance Proposal Toolkit",cashflow_planner:"Small-Business Cash-Flow Planner"};
+const PRODUCTS=require("./_products");
 function valid(product,exp,sig){
   const secret=process.env.FULFILLMENT_SIGNING_SECRET;
   if(!secret)return false;
