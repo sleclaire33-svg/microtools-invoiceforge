@@ -1,7 +1,9 @@
 [build]
+  command = "npm run build"
   publish = "public"
 
 [functions]
+  included_files = ["private-downloads/*.bin", "api/_releases.json"]
   directory = "netlify/functions"
 
 [[redirects]]

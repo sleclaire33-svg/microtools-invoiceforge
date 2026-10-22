@@ -1,0 +1,38 @@
+{
+  "invoiceforge_complete": {
+    "filename": "InvoiceForge_Complete_Kit_v3.zip",
+    "bytes": 45301,
+    "sha256": "2e8623118d3c8bf83b9ac0d1c4511a18c7bfc946b2798a4291d7871b19ba8176",
+    "version": "3.0",
+    "encryptedFile": "invoiceforge_complete.bin",
+    "iv": "dbaf48b719c5b913f05ba998",
+    "tag": "79cc91c58e76bc98c6e771b7f310dff6"
+  },
+  "certpai_complete": {
+    "filename": "CertPai_Complete_Kit_v3.zip",
+    "bytes": 38918,
+    "sha256": "70565913ab8cc950be3bf12fc4b357529acc18544c48a0dc5f6bb851a9e0a08e",
+    "version": "3.0",
+    "encryptedFile": "certpai_complete.bin",
+    "iv": "e2dc80ae1e5c614eb13e31db",
+    "tag": "a6ec248b52416a8aede88f287d74f5cf"
+  },
+  "siteintellect_complete": {
+    "filename": "SiteIntellect_Complete_Kit_v3.zip",
+    "bytes": 40574,
+    "sha256": "d6b6fd56d701fa1eaf239f06e7e0217d7dd2e0bd368832c7a7412fb470f873e8",
+    "version": "3.0",
+    "encryptedFile": "siteintellect_complete.bin",
+    "iv": "53cda7db58fbfc8d101cac3d",
+    "tag": "85a369ea01bae9fcad21c80cb78061ed"
+  },
+  "claimproof_complete": {
+    "filename": "ClaimProof_Complete_Kit_v3.zip",
+    "bytes": 41867,
+    "sha256": "76e13d54951cdb738ab40b9c3bad4cd35cec9a34ce2dc1d7b09d05dbf08866a4",
+    "version": "3.0",
+    "encryptedFile": "claimproof_complete.bin",
+    "iv": "f8c9c33936bf32fe1e2ff237",
+    "tag": "940d61b1e007fa306b8ac5bf5d9bf653"
+  }
+}

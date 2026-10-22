@@ -1,0 +1,13 @@
+'use strict';
+function today(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function dateNumber(s){if(!/^\d{4}-\d{2}-\d{2}$/.test(s||''))return null;const [y,m,d]=s.split('-').map(Number);const t=Date.UTC(y,m-1,d);return new Date(t).toISOString().slice(0,10)===s?t:null;}
+function daysUntil(s,ref){const d=dateNumber(s),r=dateNumber(ref);return d===null||r===null?null:Math.round((d-r)/86400000);}
+function compute(kind,r,ref){
+ if(kind==='invoice'){const balance=Math.max(0,Math.round((Number(r.total)-Number(r.paid))*100)/100);const days=daysUntil(r.due,ref);return{balance,status:Number(r.paid)>Number(r.total)?'Check overpayment':balance===0?'Paid':days===null?'Set due date':days<0?'Overdue':Number(r.paid)>0?'Part-paid':days===0?'Due today':'Upcoming',needs:!r.due||!r.next||!r.notes||Number(r.paid)>Number(r.total)};}
+ if(kind==='renewal'){const days=daysUntil(r.expiry,ref);return{days,status:days===null?'Date unknown':days<0?'Expired':days<=30?'Due within 30 days':days<=90?'Due within 90 days':'Later',needs:!r.expiry||r.verified!=='Verified'||!r.next};}
+ if(kind==='qa'){const complete=['page','device','steps','expected','actual'].every(k=>String(r[k]||'').trim());return{status:r.state,needs:r.state!=='Not applicable'&&(!complete||(r.state==='Closed'&&!String(r.retest||'').trim()))};}
+ return{status:r.include==='Yes'?'In submission':'Reference only',needs:!r.source||!r.location||!r.date};
+}
+function validate(kind,r,rows,editing){if(!r.id?.trim())return'Record ID is required.';if(rows.some(x=>x.id.toLowerCase()===r.id.toLowerCase()&&x.id!==editing))return'Use a unique record ID.';if(kind==='invoice'&&(!r.client?.trim()||!Number.isFinite(Number(r.total))||!Number.isFinite(Number(r.paid))||Number(r.total)<0||Number(r.paid)<0||Number(r.total)>1e12||Number(r.paid)>1e12))return'Enter a client and valid non-negative invoice and payment amounts.';if(kind==='invoice'&&[r.total,r.paid].some(v=>!/^\d+(\.\d{1,2})?$/.test(String(v))))return'Use amounts with no more than two decimal places.';for(const key of ['due','next','expiry','date'])if(r[key]&&dateNumber(r[key])===null)return'Use a valid date.';if(kind==='qa'&&r.state==='Closed'&&compute(kind,r,today()).needs)return'Before closing a finding, fill in the page, device, steps, expected and actual results, and retest evidence.';return'';}
+function csvCell(value){const raw=String(value??'');const safe=/^[\s]*[=+\-@]/.test(raw)?"'"+raw:raw;return'"'+safe.replaceAll('"','""')+'"';}
+if(typeof module!=='undefined')module.exports={dateNumber,daysUntil,compute,validate,csvCell};
