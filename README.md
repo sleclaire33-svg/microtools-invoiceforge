@@ -1,36 +1,58 @@
-# Micro Tools Studio — InvoiceForge
+# Micro Tools Studio
 
-Micro Tools Studio is the working umbrella brand. InvoiceForge is the invoice product. This hosted-first web app offers free browser tools and PayPal-powered checkout.
+InvoiceForge is the flagship of four downloadable workflow kits. The revised presentation is published at https://www.microtoolsstudio.com/. The deployed checkout is in sandbox; the four complete kits remain unavailable until secure delivery is configured and the buyer flow is verified.
 
-## Products
-- Free tools
-- Get-Paid-Faster Starter Kit — $14.99 (one-time static resources)
-- Workflow Resource Bundle — $29 (one-time static resources; no future software features)
+## Current complete kits
 
-## Payment strategy
-PayPal is the required payment/settlement provider. The checkout is designed to show eligible PayPal-supported payment options rather than forcing every buyer to use a PayPal account, including:
-- PayPal
-- Guest card checkout when eligible
-- Venmo when eligible
-- Pay Later when eligible
-- Apple Pay / Google Pay integration components and eligibility detection are prepared for wallet-specific setup
+| Product key | Product | Price (USD, one time) |
+| --- | --- | --- |
+| invoiceforge_complete | InvoiceForge Complete Kit | 29.00 |
+| certpai_complete | CertPai Complete Kit | 19.00 |
+| siteintellect_complete | SiteIntellect Complete Kit | 29.00 |
+| claimproof_complete | ClaimProof Complete Kit | 15.00 |
 
-Availability varies by buyer, country, currency, device, and merchant eligibility. PayPal's current SDK supports these payment categories and recommends eligibility checks before rendering methods.
+Each ZIP includes a standalone browser workspace, an XLSX tracker, a fillable PDF, editable text and a quick-start guide. InvoiceForge also includes twelve client communication templates. Browser workspaces support up to 1,000 records and JSON backup/import; spreadsheet companions have 100 prepared rows. The formats do not synchronize. Native Excel, Google Sheets and Numbers compatibility has not been verified.
 
-## Required environment variables
-PAYPAL_CLIENT_ID
-PAYPAL_CLIENT_SECRET
-PAYPAL_ENV=sandbox or production
-PAYPAL_CURRENCY=USD
-PAYPAL_WEBHOOK_ID
-FULFILLMENT_SIGNING_SECRET
+Legacy HTML-resource product keys and prices remain supported for existing links. New storefront pages promote the complete kits. Do not represent a legacy lifetime-access label as a future software entitlement.
 
-Never commit PayPal secrets or the fulfillment signing secret.
+## Local work
 
-## Fulfillment
-Successful PayPal captures return a time-limited signed delivery URL. The Get-Paid-Faster Starter Kit is delivered as a browser-based printable template document; customers can use Print → Save as PDF.
+- `npm run dev` starts the local static/API preview on port 4173.
+- `npm run build` synchronizes root pages, CSS, JS and assets into public/.
+- `npm test` runs the 25 API, delivery and product-calculation checks.
+- Root pages are the source for edits; public/ is the deployed static output.
+- Do not commit public/__qa/ or environment secrets.
 
-The current fulfillment flow is intentionally lightweight for the MVP. Before public launch, run a complete PayPal Sandbox purchase and verify order creation, buyer approval, capture, signed delivery, webhook behavior, and refund handling.
+The offline workspace builder and original companion files are preserved in the owner's Micro_Tools_Studio_v3_Complete_Release.zip. Paid plaintext files are deliberately outside this repository.
+
+## Payment and delivery behavior
+
+PayPal v6 eligibility determines the displayed PayPal, card, Venmo and Pay Later methods. Eligibility depends on merchant, buyer and device; there is no claim that every buyer sees every method. Apple Pay and Google Pay are not implemented in this release.
+
+The server owns product prices. New ZIP orders use a signed order token. Capture verifies product, exact USD amount and completed payment before returning a signed download link lasting 24 hours. The checkout saves a pending order in session storage and offers a status check before another payment attempt. A completed order can save its details locally. Customer email delivery and a persistent account portal are not configured.
+
+Releases are AES-256-GCM encrypted in private-downloads/. The server checks byte count and SHA-256 before allowing a kit purchase. `scripts/package-encrypted-downloads.js /absolute/path/to/release-zips` packages the four customer ZIPs and writes manifests. Its key is generated in ignored .env.downloads.local; store the value only in protected host environment settings. Never place paid plaintext ZIPs in public/.
+
+## Environment and hosting
+
+See .env.example for variable names. PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, FULFILLMENT_SIGNING_SECRET and MTS_DOWNLOAD_KEY are needed for complete-kit checkout. Use PAYPAL_ENV=sandbox and PAYPAL_CURRENCY=USD. The optional INVOICEFORGE_COMPLETE_BASE64 migration value only supports InvoiceForge and is not the preferred release mechanism.
+
+Production order creation requires PAYPAL_WEBHOOK_ID and explicit CHECKOUT_LIVE_ENABLED=true. Never enable live payments merely because a deployment passed. Webhook verification currently logs verified events; it does not provide durable order storage or automatic email recovery.
+
+Vercel uses vercel.json and public/. Netlify uses netlify.toml and API adapters in netlify/functions/. Both package encrypted release files as server-only assets. The live domain and Git-based deployment were verified on 22 October 2026. The current Vercel connector cannot access the owning workspace, which prevents setting the server-only release key through that connection.
+
+## Validation and remaining gates
+
+All 25 local tests pass. Four actual encrypted releases were decrypted and matched to their manifests. ZIP integrity and local static references passed. Hands-on Chromium checks covered the storefront, free invoice calculator, the four workspace examples, backup exports, InvoiceForge backup restore and 390px responsive layouts.
+
+Before live sales:
+1. Confirm the selling route. A later review is considering Lemon Squeezy as hosted checkout/delivery; it is not yet integrated with the new kits.
+2. Configure protected release delivery in the chosen route.
+3. Complete an actual buyer sandbox purchase, download, cancellation/retry and refund check. Automated fixtures do not replace this check.
+4. Confirm account-specific merchant, payout and tax setup; automatic tax calculation is not implemented in direct PayPal checkout.
+5. Obtain the owner's explicit live-payment approval.
+
+No real payment was taken. Social materials are drafts and have not been posted. No sales, customer validation or profitable acquisition channel is claimed.
 
 ## Brand and legal setup
 
@@ -40,23 +62,5 @@ The current fulfillment flow is intentionally lightweight for the MVP. Before pu
 - Name screening is preliminary, not legal clearance. Do not claim trademark availability or register/file a trademark until federal, Washington, marketplace, and common-law searches have been reviewed.
 - Do not use “Micro Tools Studio” as a verified legal entity name. A sole proprietor’s legal identity and any required trade-name registration are separate.
 
-## Hosting
-Vercel remains supported, but a Netlify fallback is included:
-- `netlify/functions/` contains adapters for the existing API handlers.
-- `netlify.toml` preserves the existing `/api/*` URLs.
-- Netlify can connect directly to the GitHub repository for continuous deployment.
-- Runtime secrets belong in the Netlify UI, not `netlify.toml`.
 
-Netlify's current documentation supports GitHub continuous deployment, serverless Functions, and runtime environment variables.
-
-## Launch blockers
-1. Connect the GitHub repository to Netlify or repair the Vercel GitHub authorization.
-2. Add PayPal Sandbox credentials in the hosting dashboard.
-3. Configure a PayPal Sandbox webhook URL and subscribed events.
-4. Complete end-to-end sandbox payment tests.
-5. Replace placeholder support contact and draft legal/refund language.
-6. Configure a production custom domain.
-7. Switch PayPal to production only after sandbox validation.
-8. Add analytics/conversion tracking after the payment path is proven.
-
-No PayPal or hosting secret should ever be pasted into chat or committed to GitHub.
+No payment or hosting secret should be pasted into chat or committed to GitHub.
