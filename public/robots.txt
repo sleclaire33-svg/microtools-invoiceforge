@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /api/
-
-Sitemap: https://microtools-invoiceforge.netlify.app/sitemap.xml
+Disallow: /thank-you.html
+Disallow: /checkout.html
+Sitemap: https://www.microtoolsstudio.com/sitemap.xml

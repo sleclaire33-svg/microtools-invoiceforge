@@ -102,7 +102,7 @@ test("captured order fulfillment URL is accepted by the download verifier",async
       purchase_units:[{
         custom_id:"template_pack",
         amount:{currency_code:"USD",value:"14.99"},
-        payments:{captures:[{id:"CAPTURE123",status:"COMPLETED"}]}
+        payments:{captures:[{id:"CAPTURE123",status:"COMPLETED",amount:{value:"14.99",currency_code:"USD"}}]}
       }]
     })};
     throw Error("Unexpected test PayPal request: "+url);
@@ -113,7 +113,7 @@ test("captured order fulfillment URL is accepted by the download verifier",async
     assert.equal(captureRes.statusCode,200);
     assert.equal(captureRes.body.status,"COMPLETED");
     const downloadUrl=new URL(captureRes.body.downloadUrl,"https://example.test");
-    assert.equal(downloadUrl.pathname,"/.netlify/functions/download");
+    assert.equal(downloadUrl.pathname,"/api/download");
     const downloadRes=response();
     await downloadHandler({method:"GET",query:Object.fromEntries(downloadUrl.searchParams.entries())},downloadRes);
     assert.equal(downloadRes.statusCode,200);
@@ -204,10 +204,10 @@ test("order creation uses server-defined product price and currency",async()=>{
 
 test("capture refuses a PayPal order with mismatched product amount before capture",async()=>{
   const handler=require("../api/capture-order");
-  const keys=["PAYPAL_CLIENT_ID","PAYPAL_CLIENT_SECRET","PAYPAL_ENV","PAYPAL_CURRENCY"];
+  const keys=["PAYPAL_CLIENT_ID","PAYPAL_CLIENT_SECRET","PAYPAL_ENV","PAYPAL_CURRENCY","FULFILLMENT_SIGNING_SECRET"];
   const previous=Object.fromEntries(keys.map(key=>[key,process.env[key]]));
   const originalFetch=global.fetch;
-  Object.assign(process.env,{PAYPAL_CLIENT_ID:"sandbox-client-id",PAYPAL_CLIENT_SECRET:"sandbox-client-secret",PAYPAL_ENV:"sandbox",PAYPAL_CURRENCY:"USD"});
+  Object.assign(process.env,{PAYPAL_CLIENT_ID:"sandbox-client-id",PAYPAL_CLIENT_SECRET:"sandbox-client-secret",PAYPAL_ENV:"sandbox",PAYPAL_CURRENCY:"USD",FULFILLMENT_SIGNING_SECRET:"test-signing-only"});
   let captureCalled=false;
   global.fetch=async(url,options={})=>{
     if(String(url).endsWith("/v1/oauth2/token"))return{ok:true,status:200,json:async()=>({access_token:"test-access-token"})};
@@ -227,5 +227,36 @@ test("capture refuses a PayPal order with mismatched product amount before captu
   }finally{
     global.fetch=originalFetch;
     for(const key of keys){if(previous[key]===undefined)delete process.env[key];else process.env[key]=previous[key];}
+  }
+});
+
+test('catalog rejects inherited object keys without contacting PayPal', async()=>{
+  const handler=require('../api/create-order');
+  for(const product of ['__proto__','constructor','toString']){
+    const res=response();
+    await handler({method:'POST',body:{product}},res);
+    assert.equal(res.statusCode,400);
+    assert.equal(res.body.error,'Unknown product.');
+  }
+});
+
+test('every catalog product has a matching signed download',async()=>{
+  const products=require('../api/_products');
+  const handler=require('../api/download');
+  const old=process.env.FULFILLMENT_SIGNING_SECRET;
+  process.env.FULFILLMENT_SIGNING_SECRET='test-catalog-delivery-only';
+  try{
+    for(const [product,item] of Object.entries(products)){
+      if(item.format==='zip')continue; // Binary releases are verified in checkout.test.js.
+      const exp=Math.floor(Date.now()/1000)+600;
+      const sig=crypto.createHmac('sha256',process.env.FULFILLMENT_SIGNING_SECRET).update(product+'.'+exp).digest('hex');
+      const res=response();
+      await handler({method:'GET',query:{product,exp:String(exp),sig}},res);
+      assert.equal(res.statusCode,200);
+      assert.ok(res.body.includes(item.description));
+    }
+  }finally{
+    if(old===undefined)delete process.env.FULFILLMENT_SIGNING_SECRET;
+    else process.env.FULFILLMENT_SIGNING_SECRET=old;
   }
 });

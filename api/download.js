@@ -1,5 +1,7 @@
 const crypto=require("crypto");
-const PRODUCTS={template_pack:"InvoiceForge Get-Paid-Faster Starter Kit",lifetime_pro:"InvoiceForge Workflow Resource Bundle",late_payment_kit:"Late-Payment Follow-Up Kit",proposal_toolkit:"Freelance Proposal Toolkit",cashflow_planner:"Small-Business Cash-Flow Planner"};
+const PRODUCTS=require("./_products");
+const {kitBytes}=require("./_delivery");
+const releases=require("./_releases.json");
 function valid(product,exp,sig){
   const secret=process.env.FULFILLMENT_SIGNING_SECRET;
   if(!secret)return false;
@@ -78,7 +80,18 @@ function page(product){if(product==="template_pack")return templatePack();if(pro
 module.exports=async(req,res)=>{
   if(req.method!=="GET")return res.status(405).send("Method not allowed.");
   const{product,exp,sig}=req.query||{},n=Number(exp);
-  if(!PRODUCTS[product]||!Number.isSafeInteger(n)||n<Math.floor(Date.now()/1000)||!valid(product,n,String(sig)))return res.status(403).send("Download link expired or invalid.");
+  if(!PRODUCTS[product]||!Number.isSafeInteger(n)||n<Math.floor(Date.now()/1000)||!valid(product,n,String(sig)))return res.status(403).send("Download link expired or invalid. For help, contact sean@microtoolsstudio.com with your order number. Do not pay again.");
+  if(PRODUCTS[product].format==='zip'){
+    const release=releases[product];
+    const bytes=kitBytes(product);
+    if(!bytes)return res.status(503).send('Your kit is temporarily unavailable. Please contact sean@microtoolsstudio.com with your order number. Do not pay again.');
+    res.setHeader('Content-Type','application/zip');
+    res.setHeader('Content-Disposition','attachment; filename="'+release.filename+'"');
+    res.setHeader('Content-Length',String(bytes.length));
+    res.setHeader('Cache-Control','private, no-store');
+    res.setHeader('X-Content-Type-Options','nosniff');
+    return res.status(200).send(bytes);
+  }
   res.setHeader("Content-Type","text/html; charset=utf-8");
   res.setHeader("Cache-Control","private, no-store");
   res.status(200).send(page(product));
