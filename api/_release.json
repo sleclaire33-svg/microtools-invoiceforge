@@ -1,9 +1,9 @@
 {
   "filename": "InvoiceForge_Complete_Kit_v3.zip",
-  "bytes": 45301,
-  "sha256": "2e8623118d3c8bf83b9ac0d1c4511a18c7bfc946b2798a4291d7871b19ba8176",
+  "bytes": 57547,
+  "sha256": "b3b005577d0884ad33ef5f5991b3c5695ccb558751750458c316583d0cdcb301",
   "version": "3.0",
   "encryptedFile": "invoiceforge_complete.bin",
-  "iv": "dbaf48b719c5b913f05ba998",
-  "tag": "79cc91c58e76bc98c6e771b7f310dff6"
+  "iv": "ecf5b3a2bd4cf0bb29cac3ae",
+  "tag": "28c6e28deb5cc2ea0e7a1e03fcc45f09"
 }

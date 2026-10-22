@@ -1,0 +1,3 @@
+const test=require('node:test'),assert=require('node:assert/strict'),F=require('../scripts/free-tools-core');
+test('quote totals round each line and charges to cents and reject invalid inputs',()=>{assert.equal(F.quote([{qty:3,rate:19.99}],10,10).total,54.97);assert.throws(()=>F.quote([{qty:-1,rate:50}],0,0));assert.throws(()=>F.quote([{qty:1,rate:50}],51,0));});
+test('rate estimator rejects zero capacity and impossible utilization',()=>{const r={take:4000,expenses:500,buffer:250,tax:25,fees:3,hours:30,billable:60,weeks:46};const c=F.rate(r);assert.equal(c.monthlyHours,69);assert.ok(Math.abs(c.revenue-6529.20962199)<0.0001);assert.throws(()=>F.rate({...r,hours:0}));assert.throws(()=>F.rate({...r,billable:101}));assert.throws(()=>F.rate({...r,weeks:53}));});
