@@ -1,6 +1,6 @@
 # Micro Tools Studio launch checklist
 
-Checked 25 October 2026. The revised Lemon Squeezy catalog is published. Test payments and live zero-dollar file delivery passed; real paid settlement/refund and main-site deployment verification remain separate checks.
+Checked 25 October 2026. The revised Lemon Squeezy catalog is published. Test payments and live zero-dollar file delivery passed; real paid settlement/refund and final browser verification remain separate checks.
 
 ## Completed
 
@@ -35,7 +35,7 @@ All five are published with current covers and v3 files. The four obsolete offer
 4. DONE: all five test-mode purchases passed, with matching confirmations, receipt emails and file attachments. Orders #4956973–4956977 in test mode. InvoiceForge test download correctly reported that downloads are disabled in test mode.
 5. Approve a concrete low-value live purchase and refund procedure before charging any real payment method. Verify product, final price/tax, receipt, order and actual ZIP delivery. No live purchase test has completed.
 6. DONE: new catalog published, all four obsolete listings unpublished. Storefront verified to show only the five current kits. Legacy files and products retained; historical entitlement access was not exercised because no earlier paid customer orders were observed.
-7. IMPLEMENTED, deployment verification pending: explicit per-product live Lemon Squeezy links, format confirmation, tax/receipt guidance and purchase recovery instructions. Hosted checkout does not enable direct PayPal production. Existing direct order recovery is preserved. All 36 automated tests pass.
+7. PUBLISHED through PR #21 on 25 October: explicit per-product live Lemon Squeezy links, format confirmation, tax/receipt guidance and purchase recovery instructions. Hosted checkout does not enable direct PayPal production. Existing direct order recovery is preserved. All 36 automated tests pass.
 8. Direct PayPal remains a separate legacy/test path. No production credentials, webhook or live gate were changed. Lemon Squeezy is the current kit payment/delivery path; PayPal remains the selected merchant payout method.
 9. Recheck mobile/desktop navigation, checkout mapping, receipt links, terms/refunds/privacy, support and download recovery after the live switch.
 10. Release the prepared campaign after payment and delivery pass. Measure visits, checkout starts, sales, refunds and support effort before increasing spend.
@@ -62,3 +62,7 @@ Private 100% QA discount restricted to the five kits and five total redemptions.
 All five live receipts arrived in the signed-in owner's personal inbox and contain START_HERE.html instructions, order access, and the business support email. InvoiceForge's first browser transfer returned a missing file path; one retry downloaded the exact release successfully. Other four transfers passed directly.
 
 Main-site source changes include checkout routing and support/privacy/payment copy. Tests: 36 passed, build completed, diff whitespace check passed. Vercel connector reported missing team authorization. Automatic approval review rejected a direct push to main because it could trigger production deployment. Source is being prepared on release/lemonsqueezy-checkout-20261025 for review; main-site publication still needs explicit approval and deployment verification. The shell Git push to the review branch also lacked credentials; use the connected GitHub service for that branch, never bypass the main-branch approval.
+
+## Publication update
+
+Owner renewed Vercel access and requested continuation. PR #21 merged to main as 4205ae10bc74195a5b68198329ae7a649e860df4. Production deployment dpl_8aiVhrSFrzJ422GcSAcrERtiXxzR is READY and assigned to www.microtoolsstudio.com and microtoolsstudio.com. The homepage now reports digital kits available. InvoiceForge and CertPai live purchase routes checked in the browser. Follow-up copy cleanup corrects old 24-hour/no-email language and clarifies payment methods. Final full-catalog browser verification follows this copy release.

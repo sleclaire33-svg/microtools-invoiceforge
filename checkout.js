@@ -69,6 +69,7 @@
    for(const session of sessions){if(typeof session.hasReturned==='function'&&session.hasReturned()){await session.resume();break;}}
   }catch(e){status(e.message||'Checkout is temporarily unavailable.');$('retry-checkout').hidden=false;$('checkout-alternatives').hidden=false;}
  }
+ $('format-confirm').addEventListener('change',()=>status(''));
  $('retry-confirmation').addEventListener('click',()=>{if(!busy&&pending)confirm(pending.orderId).catch(()=>{});});
  $('retry-checkout').addEventListener('click',initialize);
  initialize();
