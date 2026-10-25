@@ -1,0 +1,29 @@
+{
+  "account": "microtoolsstudio",
+  "brandId": "7640484",
+  "timezone": "Asia/Bangkok",
+  "status": "scheduled_pending_publication",
+  "posts": [
+    {
+      "date": "2026-10-25T18:00:00+07:00",
+      "image": "studio_collection.png",
+      "text": "Five focused kits. One place to find the tool for the task.\n\nMicro Tools Studio is open with practical digital workspaces for freelancers, small teams and everyday record keeping:\n\n• InvoiceForge — invoice balances and follow-up drafts · $19\n• Agency OS — project scope, deposits and onboarding · $39\n• CertPai — renewal records and review dates · $15\n• SiteIntellect — manual website checks and handoff notes · $19\n• ClaimProof — warranty records and evidence references · $9\n\nOne-time USD prices, before applicable tax. Each kit is a downloadable ZIP with a browser workspace and companion files. Desktop or laptop recommended. You review the records and take the action; these kits do not send messages, verify credentials or submit claims for you.\n\nExplore the free previews before choosing your kit:\nmicrotoolsstudio.com\n\nWhich task takes up more of your week: payment follow-ups, client onboarding or keeping records organized?\n\n#MicroToolsStudio #FreelanceBusiness #SmallBusinessTools",
+      "id": 405505419,
+      "uuid": "2593018500062137806",
+      "plannerUrl": "https://app.metricool.com/planner/calendar?blogId=7640484&openWithPostUuid=2593018500062137806",
+      "autoPublish": true,
+      "status": "PENDING"
+    },
+    {
+      "date": "2026-10-26T10:00:00+07:00",
+      "image": "invoiceforge_social_1080x1350.png",
+      "text": "Before chasing an invoice, check what is actually left to pay.\n\nFictional example: $120 invoiced, $50 confirmed received → $70 remaining. Record another $50 received and the balance becomes $20.\n\nInvoiceForge helps keep that balance visible and prepare a follow-up draft you can review. You check your payment records and send the message yourself.\n\nThe $19 USD one-time Complete Kit includes a browser workspace, spreadsheet, fillable PDF and editable client messages. Applicable tax may be added. Files work separately; keep backups. Desktop or laptop recommended.\n\nTry the free InvoiceForge preview at microtoolsstudio.com before buying.\n\nSave this check for your next follow-up: invoice total, confirmed receipts, remaining balance.\n\n#InvoiceManagement #FreelanceBusiness #MicroToolsStudio",
+      "id": 405505540,
+      "uuid": "-1945870095218358300",
+      "plannerUrl": "https://app.metricool.com/planner/calendar?blogId=7640484&openWithPostUuid=-1945870095218358300",
+      "autoPublish": true,
+      "status": "PENDING"
+    }
+  ],
+  "verifiedAt": "2026-10-25"
+}
