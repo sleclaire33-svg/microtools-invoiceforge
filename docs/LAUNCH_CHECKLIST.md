@@ -31,7 +31,7 @@ All five are published with current covers and v3 files. The four obsolete offer
 
 1. DONE 25 October: tax information shows Submitted; PayPal is connected and selected as the default payout method after the owner completed setup. This verifies the saved configuration, not receipt of a future payout.
 2. DONE: keep sleclaire33@gmail.com as the Lemon Squeezy sign-in email, per owner decision. Customer-facing support stays sean@microtoolsstudio.com. Do not retry account migration.
-3. Add monitoring DMARC in the owner's local Cloudflare session: TXT `_dmarc`, value `v=DMARC1; p=none; rua=mailto:sean@microtoolsstudio.com`. Verify publicly after saving. Last check found no DMARC. Do not blindly disable Cloudflare Email Routing: it can delete managed SPF/DKIM records even after edits.
+3. DONE: owner published monitoring DMARC and public DNS verification passed on 25 October. Preserve the working mail records.
 4. DONE: all five test-mode purchases passed, with matching confirmations, receipt emails and file attachments. Orders #4956973–4956977 in test mode. InvoiceForge test download correctly reported that downloads are disabled in test mode.
 5. DONE for sandbox refund: InvoiceForge test order #4956973 shows Refunded after a full simulated $19 refund. No real funds moved. Live paid settlement and payouts remain unverified and should be monitored on genuine sales. Do not require or create a real-card self-purchase for payment testing.
 6. DONE: new catalog published, all four obsolete listings unpublished. Storefront verified to show only the five current kits. Legacy files and products retained; historical entitlement access was not exercised because no earlier paid customer orders were observed.
@@ -72,7 +72,7 @@ Owner renewed Vercel access and requested continuation. PR #21 merged to main as
 - Static audit: 20 public HTML pages, 659 local resource/navigation references, no missing files or fragment targets.
 - All five XLSX companions opened and exported in LibreOffice Calc without formula errors in the resulting values. Source/customer files unchanged. This is not an Excel/Numbers test or full visual certification.
 - 30 additional Artifact Tool input/boundary assertions passed across all five companions: payment balance/overpayment/duplicates; renewal date bands and missing/invalid dates; evidence matching; manual QA findings; project deposit/scope/assets prerequisites. See WORKBOOK_VERIFICATION_20261025.json. Temporary in-memory changes only.
-- Public DNS rechecked: MX only smtp.google.com; SPF contains Google and Cloudflare; Google DKIM key exists. _dmarc returned NXDOMAIN. Cloudflare access is still needed to publish the monitoring record above.
+- Public DNS rechecked: MX only smtp.google.com; SPF contains Google and Cloudflare; Google DKIM key exists. DMARC subsequently published by the owner and publicly verified: v=DMARC1; p=none; rua=mailto:sean@microtoolsstudio.com (one TXT answer).
 - Recent Vercel production error/fatal query (15-minute window) returned no matching entries. A larger query exceeded plan retention; this is not proof of continuous monitoring.
 - RESOLVED: owner completed secure Google verification and the existing Micro Tools Studio dashboard reopened. InvoiceForge TEST order #4956973 received a full simulated $19 refund and shows Refunded. The dashboard was returned to live mode; all five $0 live QA orders remain Paid and unchanged. No real funds moved. A Gmail connector search found no refund email yet, so refund email delivery is not claimed.
 - Native Excel/Numbers, real paid settlement/refund, actual merchant payout, physical-device review, campaign publication and customer demand remain unverified. Do not mark these done based on simulated or $0 orders.
@@ -80,7 +80,7 @@ Owner renewed Vercel access and requested continuation. PR #21 merged to main as
 ### Remaining account actions
 
 1. DONE: existing Lemon Squeezy sign-in refreshed with Google; original store/account and personal sign-in email retained.
-2. In Cloudflare publish exactly one TXT record at _dmarc: `v=DMARC1; p=none; rua=mailto:sean@microtoolsstudio.com`. Recheck public DNS afterward. This monitoring policy does not reject customer mail.
+2. DONE: monitoring DMARC TXT published and publicly verified on 25 October. It does not reject customer mail.
 3. Monitor genuine paid customer orders and the first merchant payout. Real paid settlement/refund/payout remains unverified. Lemon Squeezy instructs sellers to use test cards for payment testing, so a real-card self-purchase is not a launch requirement. Source checked 25 October 2026: https://docs.lemonsqueezy.com/help/getting-started/test-mode . Refund procedure reference: https://docs.lemonsqueezy.com/help/orders/refund-order .
 4. Open representative files in native Excel and Numbers if claiming support for those apps. Retain current compatibility disclosures until verified.
 5. Publish only approved campaign posts/accounts. Keep spend at zero until the owner authorizes a budget; measure actual paid customer purchases separately from QA orders.
