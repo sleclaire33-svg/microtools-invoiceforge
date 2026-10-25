@@ -33,12 +33,12 @@ All five are published with current covers and v3 files. The four obsolete offer
 2. DONE: keep sleclaire33@gmail.com as the Lemon Squeezy sign-in email, per owner decision. Customer-facing support stays sean@microtoolsstudio.com. Do not retry account migration.
 3. Add monitoring DMARC in the owner's local Cloudflare session: TXT `_dmarc`, value `v=DMARC1; p=none; rua=mailto:sean@microtoolsstudio.com`. Verify publicly after saving. Last check found no DMARC. Do not blindly disable Cloudflare Email Routing: it can delete managed SPF/DKIM records even after edits.
 4. DONE: all five test-mode purchases passed, with matching confirmations, receipt emails and file attachments. Orders #4956973–4956977 in test mode. InvoiceForge test download correctly reported that downloads are disabled in test mode.
-5. Approve a concrete low-value live purchase and refund procedure before charging any real payment method. Verify product, final price/tax, receipt, order and actual ZIP delivery. No live purchase test has completed.
+5. DONE for sandbox refund: InvoiceForge test order #4956973 shows Refunded after a full simulated $19 refund. No real funds moved. Live paid settlement and payouts remain unverified and should be monitored on genuine sales. Do not require or create a real-card self-purchase for payment testing.
 6. DONE: new catalog published, all four obsolete listings unpublished. Storefront verified to show only the five current kits. Legacy files and products retained; historical entitlement access was not exercised because no earlier paid customer orders were observed.
 7. PUBLISHED through PR #21 on 25 October: explicit per-product live Lemon Squeezy links, format confirmation, tax/receipt guidance and purchase recovery instructions. Hosted checkout does not enable direct PayPal production. Existing direct order recovery is preserved. All 36 automated tests pass.
 8. Direct PayPal remains a separate legacy/test path. No production credentials, webhook or live gate were changed. Lemon Squeezy is the current kit payment/delivery path; PayPal remains the selected merchant payout method.
 9. DONE for desktop purchase mapping and recovery: all five production routes verified. Local responsive checks were performed earlier; a fresh physical mobile-device check remains unverified.
-10. Release the prepared campaign after payment and delivery pass. Measure visits, checkout starts, sales, refunds and support effort before increasing spend.
+10. Sandbox checkout/refund and actual $0 file delivery have passed. Publish approved campaign materials through the owner-approved accounts. Measure visits, checkout starts, genuine sales, refunds and support effort before increasing spend.
 
 ## Verification boundaries
 
@@ -74,13 +74,18 @@ Owner renewed Vercel access and requested continuation. PR #21 merged to main as
 - 30 additional Artifact Tool input/boundary assertions passed across all five companions: payment balance/overpayment/duplicates; renewal date bands and missing/invalid dates; evidence matching; manual QA findings; project deposit/scope/assets prerequisites. See WORKBOOK_VERIFICATION_20261025.json. Temporary in-memory changes only.
 - Public DNS rechecked: MX only smtp.google.com; SPF contains Google and Cloudflare; Google DKIM key exists. _dmarc returned NXDOMAIN. Cloudflare access is still needed to publish the monitoring record above.
 - Recent Vercel production error/fatal query (15-minute window) returned no matching entries. A larger query exceeded plan retention; this is not proof of continuous monitoring.
-- Lemon Squeezy merchant session expired while opening the sandbox refund workflow. Secure sign-in refresh is needed before that test. No refund or real charge was performed.
+- RESOLVED: owner completed secure Google verification and the existing Micro Tools Studio dashboard reopened. InvoiceForge TEST order #4956973 received a full simulated $19 refund and shows Refunded. The dashboard was returned to live mode; all five $0 live QA orders remain Paid and unchanged. No real funds moved. A Gmail connector search found no refund email yet, so refund email delivery is not claimed.
 - Native Excel/Numbers, real paid settlement/refund, actual merchant payout, physical-device review, campaign publication and customer demand remain unverified. Do not mark these done based on simulated or $0 orders.
 
 ### Remaining account actions
 
-1. Refresh the existing Lemon Squeezy sign-in securely; retain the existing store/account and personal sign-in email.
+1. DONE: existing Lemon Squeezy sign-in refreshed with Google; original store/account and personal sign-in email retained.
 2. In Cloudflare publish exactly one TXT record at _dmarc: `v=DMARC1; p=none; rua=mailto:sean@microtoolsstudio.com`. Recheck public DNS afterward. This monitoring policy does not reject customer mail.
-3. Agree on a specific paid-test amount/tax limit and buyer payment method before charging real funds. Test a current product, confirm receipt/file, issue the approved refund, and verify its final state. Do not call a $0 order a paid test.
+3. Monitor genuine paid customer orders and the first merchant payout. Real paid settlement/refund/payout remains unverified. Lemon Squeezy instructs sellers to use test cards for payment testing, so a real-card self-purchase is not a launch requirement. Source checked 25 October 2026: https://docs.lemonsqueezy.com/help/getting-started/test-mode . Refund procedure reference: https://docs.lemonsqueezy.com/help/orders/refund-order .
 4. Open representative files in native Excel and Numbers if claiming support for those apps. Retain current compatibility disclosures until verified.
 5. Publish only approved campaign posts/accounts. Keep spend at zero until the owner authorizes a budget; measure actual paid customer purchases separately from QA orders.
+
+
+## Documentation release
+
+PR #24 merged as 8029731f3617939607a8210a96605d797647d26f; Vercel production dpl_5NbiPKziwzfZwjfp8AcdVZKUrDRi reached READY. No storefront or payment configuration changed in that documentation update. This follow-up records the completed sandbox refund and corrects the real-card testing requirement.
