@@ -1,6 +1,6 @@
 # Micro Tools Studio launch checklist
 
-Checked 25 October 2026. The revised Lemon Squeezy catalog is published. Test payments and live zero-dollar file delivery passed; real paid settlement/refund and final browser verification remain separate checks.
+Checked 25 October 2026. The revised Lemon Squeezy catalog is published. Test payments and live zero-dollar file delivery passed; real paid settlement/refund remain separate checks.
 
 ## Completed
 
@@ -65,4 +65,4 @@ Main-site source changes include checkout routing and support/privacy/payment co
 
 ## Publication update
 
-Owner renewed Vercel access and requested continuation. PR #21 merged to main as 4205ae10bc74195a5b68198329ae7a649e860df4. Production deployment dpl_8aiVhrSFrzJ422GcSAcrERtiXxzR is READY and assigned to www.microtoolsstudio.com and microtoolsstudio.com. The homepage now reports digital kits available. InvoiceForge and CertPai live purchase routes checked in the browser. Follow-up copy cleanup corrects old 24-hour/no-email language and clarifies payment methods. Final full-catalog browser verification follows this copy release.
+Owner renewed Vercel access and requested continuation. PR #21 merged to main as 4205ae10bc74195a5b68198329ae7a649e860df4. Production deployment dpl_8aiVhrSFrzJ422GcSAcrERtiXxzR is READY and assigned to www.microtoolsstudio.com and microtoolsstudio.com. The homepage now reports digital kits available. InvoiceForge and CertPai live purchase routes checked in the browser. Follow-up copy cleanup corrects old 24-hour/no-email language and clarifies payment methods. All five product pages were followed through order review to the matching live Lemon Squeezy checkout: InvoiceForge $19, CertPai $15, SiteIntellect $19, ClaimProof $9, Agency OS $39. No test-mode banner appeared. Purchase recovery opened the secure email sign-in page. Production error/fatal log checks found no matching entries. Follow-up copy release PR #22 deployed successfully as 978a8107c93259f5e3694a871920cc2c89413e04 (Vercel dpl_BhpsTXVbL8nXu4iF6Ha2LStGbjoY). Final support navigation and purchase-label cleanup is included with this checkpoint.
