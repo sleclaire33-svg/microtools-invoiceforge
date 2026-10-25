@@ -5,10 +5,10 @@ Metricool brand 7640484 is connected to Instagram @microtoolsstudio, timezone As
 ## Truthful funnel
 
 1. Instagram: record published post URL, impressions/reach, engagement and supported profile/link metrics from Metricool. Keep missing values blank, not zero. An Instagram caption URL is not a reliable clickable checkout path; use a verified profile website link or show the short domain in the graphic.
-2. Website: Vercel Web Analytics was disabled when queried. The browser session requires Vercel 2FA. No website analytics collection or checkout-start event is claimed. Existing UTM links label traffic but do not themselves collect it.
+2. Website: Metricool visit measurement is integrated on an explicit allowlist of public storefront and preview pages. Query strings/fragments are removed, referrers are reduced to origins, checkout/work-tool pages are excluded, and supported GPC/DNT signals prevent collection. Open any storefront URL with ?qa=1 to exclude the whole browser-tab session from subsequent measurement. These are visit counts, not checkout starts or purchase attribution. Vercel Web Analytics remains disabled; it is not needed for this basic Metricool implementation. Dashboard connection verification must pass before reporting live collection.
 3. Purchases: use Lemon Squeezy genuine paid orders, actual fees/refunds and actual payouts. Exclude the five $0 QA orders and all sandbox orders. Do not equate scheduled posts, checkout visits, orders and bank receipts.
 
-## Before activating Vercel analytics
+## Optional future Vercel analytics (not required for Metricool visits)
 
 Confirm the hosting plan and cost authorization in the dashboard. Current official documentation says Hobby is for noncommercial personal use; if this project is on Hobby, resolve commercial hosting eligibility before scaling the store. No paid upgrade is authorized by this checklist.
 
