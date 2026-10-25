@@ -1,0 +1,130 @@
+{
+  "engine": "Artifact Tool",
+  "date": "2026-10-25",
+  "checks": [
+    {
+      "label": "Invoice balance subtracts received payments",
+      "result": "pass"
+    },
+    {
+      "label": "Fully paid invoice reconciles",
+      "result": "pass"
+    },
+    {
+      "label": "Overpayment flagged",
+      "result": "pass"
+    },
+    {
+      "label": "Negative payment rejected",
+      "result": "pass"
+    },
+    {
+      "label": "Duplicate invoice flagged",
+      "result": "pass"
+    },
+    {
+      "label": "Renewal boundary -1",
+      "result": "pass"
+    },
+    {
+      "label": "Renewal boundary 0",
+      "result": "pass"
+    },
+    {
+      "label": "Renewal boundary 30",
+      "result": "pass"
+    },
+    {
+      "label": "Renewal boundary 31",
+      "result": "pass"
+    },
+    {
+      "label": "Renewal boundary 60",
+      "result": "pass"
+    },
+    {
+      "label": "Renewal boundary 61",
+      "result": "pass"
+    },
+    {
+      "label": "Renewal boundary 90",
+      "result": "pass"
+    },
+    {
+      "label": "Renewal boundary 91",
+      "result": "pass"
+    },
+    {
+      "label": "Blank expiry is unknown",
+      "result": "pass"
+    },
+    {
+      "label": "Text expiry flagged",
+      "result": "pass"
+    },
+    {
+      "label": "Evidence reference matches",
+      "result": "pass"
+    },
+    {
+      "label": "Missing evidence flagged",
+      "result": "pass"
+    },
+    {
+      "label": "Duplicate evidence is ambiguous",
+      "result": "pass"
+    },
+    {
+      "label": "Missing attachment filename flagged",
+      "result": "pass"
+    },
+    {
+      "label": "Twenty checks start untested",
+      "result": "pass"
+    },
+    {
+      "label": "Failed check needs evidence",
+      "result": "pass"
+    },
+    {
+      "label": "Complete failure directs retest",
+      "result": "pass"
+    },
+    {
+      "label": "Passing check still needs observation",
+      "result": "pass"
+    },
+    {
+      "label": "Observed passing check records",
+      "result": "pass"
+    },
+    {
+      "label": "Required deposit calculated",
+      "result": "pass"
+    },
+    {
+      "label": "Unpaid deposit blocks readiness",
+      "result": "pass"
+    },
+    {
+      "label": "Paid deposit does not bypass scope",
+      "result": "pass"
+    },
+    {
+      "label": "Approved scope does not bypass assets",
+      "result": "pass"
+    },
+    {
+      "label": "All project prerequisites ready",
+      "result": "pass"
+    },
+    {
+      "label": "Receipts above quote flagged",
+      "result": "pass"
+    }
+  ],
+  "limits": [
+    "Not native Excel or Numbers",
+    "Temporary in-memory input changes only; customer files unchanged"
+  ]
+}
