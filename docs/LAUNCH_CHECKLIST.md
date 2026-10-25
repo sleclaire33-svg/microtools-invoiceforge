@@ -37,7 +37,7 @@ All five are published with current covers and v3 files. The four obsolete offer
 6. DONE: new catalog published, all four obsolete listings unpublished. Storefront verified to show only the five current kits. Legacy files and products retained; historical entitlement access was not exercised because no earlier paid customer orders were observed.
 7. PUBLISHED through PR #21 on 25 October: explicit per-product live Lemon Squeezy links, format confirmation, tax/receipt guidance and purchase recovery instructions. Hosted checkout does not enable direct PayPal production. Existing direct order recovery is preserved. All 36 automated tests pass.
 8. Direct PayPal remains a separate legacy/test path. No production credentials, webhook or live gate were changed. Lemon Squeezy is the current kit payment/delivery path; PayPal remains the selected merchant payout method.
-9. Recheck mobile/desktop navigation, checkout mapping, receipt links, terms/refunds/privacy, support and download recovery after the live switch.
+9. DONE for desktop purchase mapping and recovery: all five production routes verified. Local responsive checks were performed earlier; a fresh physical mobile-device check remains unverified.
 10. Release the prepared campaign after payment and delivery pass. Measure visits, checkout starts, sales, refunds and support effort before increasing spend.
 
 ## Verification boundaries
@@ -61,8 +61,26 @@ Private 100% QA discount restricted to the five kits and five total redemptions.
 
 All five live receipts arrived in the signed-in owner's personal inbox and contain START_HERE.html instructions, order access, and the business support email. InvoiceForge's first browser transfer returned a missing file path; one retry downloaded the exact release successfully. Other four transfers passed directly.
 
-Main-site source changes include checkout routing and support/privacy/payment copy. Tests: 36 passed, build completed, diff whitespace check passed. Vercel connector reported missing team authorization. Automatic approval review rejected a direct push to main because it could trigger production deployment. Source is being prepared on release/lemonsqueezy-checkout-20261025 for review; main-site publication still needs explicit approval and deployment verification. The shell Git push to the review branch also lacked credentials; use the connected GitHub service for that branch, never bypass the main-branch approval.
-
 ## Publication update
 
 Owner renewed Vercel access and requested continuation. PR #21 merged to main as 4205ae10bc74195a5b68198329ae7a649e860df4. Production deployment dpl_8aiVhrSFrzJ422GcSAcrERtiXxzR is READY and assigned to www.microtoolsstudio.com and microtoolsstudio.com. The homepage now reports digital kits available. InvoiceForge and CertPai live purchase routes checked in the browser. Follow-up copy cleanup corrects old 24-hour/no-email language and clarifies payment methods. All five product pages were followed through order review to the matching live Lemon Squeezy checkout: InvoiceForge $19, CertPai $15, SiteIntellect $19, ClaimProof $9, Agency OS $39. No test-mode banner appeared. Purchase recovery opened the secure email sign-in page. Production error/fatal log checks found no matching entries. Follow-up copy release PR #22 deployed successfully as 978a8107c93259f5e3694a871920cc2c89413e04 (Vercel dpl_BhpsTXVbL8nXu4iF6Ha2LStGbjoY). Final support navigation and purchase-label cleanup is included with this checkpoint.
+
+
+## Final verification pass — 25 October 2026
+
+- Main-site release PR #23 is deployed as d63ad590b4fb894bf67fe83f18e5d25b42ce1832 (Vercel dpl_FyCzZxHbA73HXDEMjmzmpTKbxho3). Support opens the full catalog and product purchase labels are explicit.
+- Static audit: 20 public HTML pages, 659 local resource/navigation references, no missing files or fragment targets.
+- All five XLSX companions opened and exported in LibreOffice Calc without formula errors in the resulting values. Source/customer files unchanged. This is not an Excel/Numbers test or full visual certification.
+- 30 additional Artifact Tool input/boundary assertions passed across all five companions: payment balance/overpayment/duplicates; renewal date bands and missing/invalid dates; evidence matching; manual QA findings; project deposit/scope/assets prerequisites. See WORKBOOK_VERIFICATION_20261025.json. Temporary in-memory changes only.
+- Public DNS rechecked: MX only smtp.google.com; SPF contains Google and Cloudflare; Google DKIM key exists. _dmarc returned NXDOMAIN. Cloudflare access is still needed to publish the monitoring record above.
+- Recent Vercel production error/fatal query (15-minute window) returned no matching entries. A larger query exceeded plan retention; this is not proof of continuous monitoring.
+- Lemon Squeezy merchant session expired while opening the sandbox refund workflow. Secure sign-in refresh is needed before that test. No refund or real charge was performed.
+- Native Excel/Numbers, real paid settlement/refund, actual merchant payout, physical-device review, campaign publication and customer demand remain unverified. Do not mark these done based on simulated or $0 orders.
+
+### Remaining account actions
+
+1. Refresh the existing Lemon Squeezy sign-in securely; retain the existing store/account and personal sign-in email.
+2. In Cloudflare publish exactly one TXT record at _dmarc: `v=DMARC1; p=none; rua=mailto:sean@microtoolsstudio.com`. Recheck public DNS afterward. This monitoring policy does not reject customer mail.
+3. Agree on a specific paid-test amount/tax limit and buyer payment method before charging real funds. Test a current product, confirm receipt/file, issue the approved refund, and verify its final state. Do not call a $0 order a paid test.
+4. Open representative files in native Excel and Numbers if claiming support for those apps. Retain current compatibility disclosures until verified.
+5. Publish only approved campaign posts/accounts. Keep spend at zero until the owner authorizes a budget; measure actual paid customer purchases separately from QA orders.
