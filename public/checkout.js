@@ -44,7 +44,18 @@
     $('format-confirm').nextElementSibling.textContent=agency?'I understand this is a digital download for desktop/laptop use. The browser workspace needs a modern browser; the separate XLSX file needs a compatible spreadsheet app.':'I understand this is a digital download for desktop/laptop use. The browser workspace needs a modern browser; the separate XLSX and fillable PDF files need compatible apps.';
    }
    if(item.format!=='zip'){$('order-format').textContent='Browser resource page · copy text or print/save PDF';$('order-inclusions').innerHTML='<li>Product-specific templates and guidance</li><li>Copy the text into your own documents</li><li>Print or save the resource as PDF</li>';$('format-confirm').nextElementSibling.textContent='I understand this is a digital resource page to copy or print/save as PDF. It does not include a spreadsheet download.';}
-   if(config.environment!=='production'){$('checkout-notice').classList.add('warning');$('checkout-notice').textContent='Sandbox test checkout · No real payments. This store is not open for live purchases yet.';}
+   // Preserve recovery of an existing direct order before starting a hosted purchase.
+   pending=storage.get(pendingKey);
+   if(item.hostedCheckout&&!pending){
+    const url=new URL(item.hostedCheckout);
+    if(url.origin!=='https://microtoolsai.lemonsqueezy.com'||!/^\/checkout\/buy\/[a-f0-9-]{36}$/.test(url.pathname)||url.search||url.hash)throw Error('The purchase link could not be verified. Please contact support.');
+    $('checkout-notice').classList.remove('warning');$('checkout-notice').textContent='Secure checkout with Lemon Squeezy. Review the final total and any applicable taxes there. Your receipt provides access to your download.';
+    $('checkout-controls').hidden=false;$('payment-provider-note').textContent='Payment and file delivery are handled by Lemon Squeezy. Available payment methods are shown at checkout.';
+    const button=document.createElement('button');button.type='button';button.className='button primary';button.textContent='Continue to secure checkout →';
+    button.addEventListener('click',()=>{if(!$('format-confirm').checked){status('Please confirm the file format before continuing.');$('format-confirm').focus();return;}location.assign(url.href);});
+    $('payment-options').append(button);return;
+   }
+   if(config.environment!=='production'){$('checkout-notice').classList.add('warning');$('checkout-notice').textContent='Sandbox test checkout · No real payments. This direct payment route is for testing only.';}
    else{$('checkout-notice').classList.remove('warning');$('checkout-notice').textContent='Secure checkout · Download after verified payment.';}
    if(!item.ready||!config.checkoutReady){$('checkout-notice').textContent=config.environment!=='production'?'Launch preparation is in progress. This kit is not accepting payments yet. You can explore the free tools and previews.':'This kit is temporarily unavailable for purchase. Please try the free tools or contact support.';$('retry-checkout').hidden=false;$('checkout-alternatives').hidden=false;return;}
    $('checkout-controls').hidden=false;pending=storage.get(pendingKey);if(pending)showPending();
