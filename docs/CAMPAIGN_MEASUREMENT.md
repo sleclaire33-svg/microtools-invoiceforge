@@ -36,3 +36,7 @@ Reference: https://docs.lemonsqueezy.com/help/checkout/passing-custom-data
 ## Guide discovery and scheduled launch posts
 
 Six public guide pages are included in the existing minimal visit measurement allowlist. QA/GPC/DNT protections and query/referrer redaction are unchanged. The guide index links to one practical guide for each of the five products, each with a relevant preview and product-page path. See INSTAGRAM_SCHEDULE_20261027.md for the six confirmed upcoming Reels.
+
+## Purchase backend prepared
+
+Supabase is connected and restored, its production URL has been corrected, and a restricted order ledger with refund/duplicate protections has been created and transaction-tested. The signed receiver is implemented separately from checkout and file delivery. Provider webhook setup and a labeled provider-to-database test remain pending secure Lemon Squeezy sign-in. See PURCHASE_TRACKING.md for exact completed work, exclusions, remaining verification and reporting limits. Do not report source-to-sale attribution as live yet.
