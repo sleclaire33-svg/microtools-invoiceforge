@@ -20,9 +20,9 @@ The handler verifies HMAC-SHA256 against the original request bytes, restricts t
 
 ## Still required before calling attribution live
 
-1. Lemon Squeezy sign-in is restored. The live webhook form is prepared with the callback URL and order/refund events; signing-key entry and Save Webhook remain pending.
+1. Lemon Squeezy sign-in is restored. The owner reported saving the webhook, but a fresh authenticated inspection found no live webhook entries; the previously prepared URL opened with empty fields. Saved live registration is therefore still unverified.
 2. Inspect existing webhooks before adding or changing any. Configure `order_created` and `order_refunded` to the exact HTTPS receiver above. Ensure the signing secret matches the production variable through a secure credential/configuration flow. Do not expose, guess, or reuse a secret from chat.
-3. Verify a provider-generated test-mode order event reaches the receiver and database. A synthetic local signature test is not a provider end-to-end test. Repeat one event and verify only one database row; simulate a refund on a test order, never a real customer's order.
+3. Configure a separate test-mode webhook before simulating orders. Live and test webhooks are separate. Verify a provider-generated test-mode order event reaches the receiver and database. A synthetic local signature test is not a provider end-to-end test. Repeat one event and verify only one database row; simulate a refund on a test order, never a real customer's order.
 4. Verify a labeled test checkout carries the approved campaign ID into the persisted row. Keep test mode and QA flags intact; do not count it as revenue. Do not charge a real card solely to prove this integration.
 5. Inspect webhook delivery history and reconcile actual orders/refunds after enabling. Failed delivery retries are finite; recover missed notifications from the provider. No background reconciliation or alerting has been enabled yet.
 
@@ -60,3 +60,13 @@ Revert the receiver/privacy deployment or disable its Lemon Squeezy webhook if n
 - Instagram schedule reread: all six October 27–November 1 Reels remain PENDING with automatic publication enabled at 10:00 Asia/Bangkok. No duplicate posts created.
 - The latest service enquiry additions were preserved when redeploying the corrected configuration. Paid service acceptance is still gated by docs/SERVICE_LAUNCH.md; these service offers are not Lemon Squeezy products.
 - Removed duplicate campaign-script tags from six guide pages. This avoids running campaign handling twice on a single visit.
+
+## Provider identity correction — 26 October 2026
+
+- Fresh authenticated test catalog inspection found distinct product IDs: InvoiceForge 1470500; Agency OS 1470502; CertPai 1470504; SiteIntellect 1470505; ClaimProof 1470506. Live product IDs above remain unchanged.
+- The receiver retains the raw provider product ID. It accepts those five additional IDs only for test-mode events. The `mts_provider_test_products` migration adds the same test-only condition to the database constraint; RLS and access grants stay unchanged. Apply `sql/provider-test-products.sql` after the initial ledger migration when rebuilding this setup.
+- QA references 4956971–4956975 are store order numbers, not JSON:API resource IDs. The receiver now sets is_qa from attributes.order_number scoped to store 495697. Resource IDs remain the deduplication key. The reporting view uses is_qa and no longer compares resource IDs to those store order numbers.
+- Database inspection still found only the synthetic QA test row. No provider-generated event has been verified in the ledger.
+- The existing test webhooks target four legacy Vercel addresses. The visible ClaimProof delivery returned DEPLOYMENT_NOT_FOUND (404). No legacy webhook was deleted or secret changed during this inspection.
+- Test-mode catalog attachments are older v3 copies. The live v4 customer releases are separate; do not report a test attachment as proof of the current live download.
+- Remaining: create and verify live and test webhook registration with matching signing credentials; trigger a provider test order/refund; verify campaign-labeled checkout attribution. Do not count the synthetic checks as real sales.
