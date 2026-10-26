@@ -4,7 +4,7 @@
 // form values, checkout data, downloaded workspace data or full referrer URLs.
 (() => {
  const hosts=new Set(['microtoolsstudio.com','www.microtoolsstudio.com']);
- const pages=new Set(['/','/index.html','/kits.html','/preview.html','/invoiceforge.html','/agencyos.html','/certpai.html','/siteintellect.html','/claimproof.html','/start.html']);
+ const pages=new Set(['/','/index.html','/kits.html','/preview.html','/invoiceforge.html','/agencyos.html','/certpai.html','/siteintellect.html','/claimproof.html','/start.html','/guides.html','/partial-payment-follow-up.html','/client-kickoff-checklist.html','/renewal-review-checklist.html','/website-fix-retest-checklist.html','/warranty-evidence-checklist.html']);
  if(!hosts.has(location.hostname)||location.protocol!=='https:')return;
  try{
   if(new URLSearchParams(location.search).get('qa')==='1')sessionStorage.setItem('mts-analytics-opt-out','1');

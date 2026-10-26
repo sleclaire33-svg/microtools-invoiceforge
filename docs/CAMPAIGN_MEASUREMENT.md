@@ -32,3 +32,7 @@ The new campaign.js preserves only 24 predefined creative/channel labels in tab 
 This is attribution preparation, NOT completed source-to-sale reporting. A signed Lemon Squeezy order webhook or supported analytics integration still needs account setup and an end-to-end test. Do not treat checkout handoff as a purchase or manufacture virtual page views as events. Current Metricool visit reporting remains unchanged.
 
 Reference: https://docs.lemonsqueezy.com/help/checkout/passing-custom-data
+
+## Guide discovery and scheduled launch posts
+
+Six public guide pages are included in the existing minimal visit measurement allowlist. QA/GPC/DNT protections and query/referrer redaction are unchanged. The guide index links to one practical guide for each of the five products, each with a relevant preview and product-page path. See INSTAGRAM_SCHEDULE_20261027.md for the six confirmed upcoming Reels.
