@@ -19,7 +19,7 @@ jobs:
           for f in api/*.js netlify/functions/*.js tests/*.js; do node --check "$f"; done
       - name: Run API security and fulfillment tests
         run: node --test tests/*.test.js
-      - name: Verify Netlify public copy
+      - name: Verify deployed static copy
         run: |
           cmp -s index.html public/index.html
           cmp -s app.js public/app.js
@@ -27,9 +27,12 @@ jobs:
           cmp -s privacy.html public/privacy.html
           cmp -s terms.html public/terms.html
           cmp -s refunds.html public/refunds.html
+          cmp -s services.html public/services.html
+          cmp -s services.css public/services.css
       - name: Verify launch SEO files
         run: |
           test -s public/robots.txt
           test -s public/sitemap.xml
-          grep -q "https://microtools-invoiceforge.netlify.app/sitemap.xml" public/robots.txt
-          grep -q "https://microtools-invoiceforge.netlify.app/" public/sitemap.xml
+          grep -q "https://www.microtoolsstudio.com/sitemap.xml" public/robots.txt
+          grep -q "https://www.microtoolsstudio.com/" public/sitemap.xml
+
