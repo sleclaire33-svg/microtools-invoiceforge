@@ -18,3 +18,11 @@ test('QA exclusion persists for the tab and privacy signals prevent collection',
  const qa=run('https://www.microtoolsstudio.com/?qa=1');assert.equal(qa.images.length,0);assert.equal(run('https://www.microtoolsstudio.com/kits.html',{saved:qa.saved}).images.length,0);
  for(const navigator of [{globalPrivacyControl:true},{doNotTrack:'1'}])assert.equal(run('https://www.microtoolsstudio.com/',{navigator}).images.length,0);
 });
+
+test('practical guide visits remain public-path-only and honor privacy controls',()=>{
+ for(const name of ['guides','partial-payment-follow-up','client-kickoff-checklist','renewal-review-checklist','website-fix-retest-checklist','warranty-evidence-checklist']){
+  const url='https://www.microtoolsstudio.com/'+name+'.html';
+  const images=run(url+'?private=SECRET#PRIVATE').images;assert.equal(images.length,1);assert.equal(new URL(images[0].src).searchParams.get('u'),url);
+  assert.equal(run(url+'?qa=1').images.length,0);assert.equal(run(url,{navigator:{globalPrivacyControl:true}}).images.length,0);
+ }
+});
