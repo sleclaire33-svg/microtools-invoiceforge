@@ -40,3 +40,5 @@ Six public guide pages are included in the existing minimal visit measurement al
 ## Purchase backend prepared
 
 Supabase is connected and restored, its production URL has been corrected, and a restricted order ledger with refund/duplicate protections has been created and transaction-tested. The signed receiver is implemented separately from checkout and file delivery. Provider webhook setup and a labeled provider-to-database test remain pending secure Lemon Squeezy sign-in. See PURCHASE_TRACKING.md for exact completed work, exclusions, remaining verification and reporting limits. Do not report source-to-sale attribution as live yet.
+
+Evening update: production signature validation and HTTPS-to-Supabase storage, duplication and refund tests now pass using an explicitly synthetic test/QA order. Provider-generated delivery and checkout-label verification remain pending the store webhook save. All six scheduled Reels were rechecked as PENDING. See PURCHASE_TRACKING.md for evidence and remaining steps.
