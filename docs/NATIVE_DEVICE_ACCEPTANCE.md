@@ -15,7 +15,7 @@ Record pass/fail for each step and a screenshot for any failure. A mobile websit
 
 ## Excel and Numbers: run separately in each installed app
 
-Use fresh copies from the actual v3 release ZIPs. Record app version and operating system. Never overwrite the release originals.
+Use fresh copies from the actual current v4 customer release ZIPs. Record app version and operating system. Never overwrite the release originals. Older v3 test-mode attachments are not proof of the live release's compatibility.
 
 Files: InvoiceForge_Working_Tool_v2.xlsx; Agency_OS_Project_Workflow_v2.xlsx; CertPai_Working_Tool_v2.xlsx; SiteIntellect_Working_Tool_v2.xlsx; ClaimProof_Working_Tool_v2.xlsx.
 

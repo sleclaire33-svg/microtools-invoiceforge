@@ -37,13 +37,31 @@ test('exact raw bytes are required; malformed, missing and changed signatures ca
 });
 test('test flags, QA orders, unknown labels and foreign stores are handled explicitly', async()=>{
   const {normalizeOrder}=await import('../lib/lemon-orders.mjs');
-  const qa=event();qa.data.id='4956971';assert.equal(normalizeOrder(qa,'123').is_qa,true);
+  const qa=event({store_id:495697,order_number:4956971});qa.data.id='9851234';
+  assert.equal(normalizeOrder(qa,'495697').is_qa,true);
+  assert.equal(normalizeOrder(qa,'495697').order_id,'9851234');
+  const sameResourceId=event();sameResourceId.data.id='4956971';assert.equal(normalizeOrder(sameResourceId,'123').is_qa,false);
+  assert.equal(normalizeOrder(event({order_number:4956971}),'123').is_qa,false);
   assert.equal(normalizeOrder(event({test_mode:true}),'123').test_mode,true);
   const simulated=event();simulated.meta.test_mode=true;assert.equal(normalizeOrder(simulated,'123').test_mode,true);
   assert.equal(normalizeOrder(event({}, {campaign_id:'private@example.test'}),'123').campaign_id,null);
   assert.throws(()=>normalizeOrder(event({store_id:456}),'123'));
   assert.throws(()=>normalizeOrder(event({test_mode:null}),'123'));
   assert.equal(normalizeOrder(event({first_order_item:{product_id:999}}),'123'),null);
+});
+test('provider test product IDs are preserved but cannot enter live sales',async()=>{
+  const {normalizeOrder,handleWebhook}=await import('../lib/lemon-orders.mjs');
+  for(const product_id of [1470500,1470502,1470504,1470505,1470506]) {
+    const e=event({first_order_item:{product_id},test_mode:true});
+    const row=normalizeOrder(e,'123');assert.equal(row.first_product_id,String(product_id));assert.equal(row.test_mode,true);
+    e.data.attributes.test_mode=false;assert.equal(normalizeOrder(e,'123'),null);
+    e.meta.test_mode=true;assert.equal(normalizeOrder(e,'123').test_mode,true);
+  }
+  let persisted;
+  const response=await handleWebhook(request(event({first_order_item:{product_id:1470500},test_mode:true})),env,async(_url,options)=>{
+    persisted=JSON.parse(options.body).p_order;return new Response(null,{status:204});
+  });
+  assert.equal(response.status,200);assert.equal(persisted.first_product_id,'1470500');assert.equal(persisted.test_mode,true);
 });
 test('refund validation supports partial and legacy full refunds without corrupting cents',async()=>{
   const {normalizeOrder}=await import('../lib/lemon-orders.mjs');

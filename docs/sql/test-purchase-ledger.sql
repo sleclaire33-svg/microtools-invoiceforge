@@ -27,6 +27,12 @@ begin
   perform public.mts_record_order(base || '{"order_id":"9999999999999999995","total_minor":0}');
   perform public.mts_record_order(base || '{"order_id":"9999999999999999996","status":"pending"}');
   perform public.mts_record_order(base || '{"order_id":"9999999999999999997","currency":"EUR"}');
+  perform public.mts_record_order(base || '{"order_id":"9999999999999999998","test_mode":true,"first_product_id":"1470500"}');
+  begin
+    perform public.mts_record_order(base || '{"order_id":"9999999999999999999","first_product_id":"1470500"}');
+    raise exception 'Test product accepted as live';
+  exception when check_violation then null;
+  end;
   if (select paid_orders_including_refunds from mts_private.campaign_orders where order_date='2020-01-01' and campaign_id='if-balance-a-ig' and currency='USD') <> 2 then raise exception 'QA, test, zero or pending orders counted'; end if;
   if (select customer_retained_minor_including_tax from mts_private.campaign_orders where order_date='2020-01-01' and campaign_id='if-balance-a-ig' and currency='USD') <> 0 then raise exception 'Refund total incorrect'; end if;
   if (select customer_charged_minor from mts_private.campaign_orders where order_date='2020-01-01' and campaign_id='if-balance-a-ig' and currency='EUR') <> 1900 then raise exception 'Currencies mixed'; end if;
