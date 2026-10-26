@@ -29,6 +29,12 @@ Root HTML/CSS files are source. `public/` contains matching deployed copies. Thi
 
 The proposed prices are validation hypotheses. No customer demand, revenue, legal clearance or specialist appointment is asserted.
 
+## Public examples and organic launch media
+
+`service-examples.html` shows one clearly fictional working example for each service and provides fictional CSV downloads. The services page links each example and provides a direct email fallback beside each enquiry button. No real customer records or internal operations files are public.
+
+`assets/services/` contains three original checklist graphics, three 24-second silent vertical videos, a shared link-preview image and the fictional CSV samples. The graphics use exact service scopes and avoid customer, revenue, ranking or accessibility-conformance claims. Captions repeat the meaningful limits and use the business contact. Scheduling records stay in private operations records. These enquiry campaigns do not enable service checkout or promise a delivery slot.
+
 ## Validation
 
 - New page links, IDs and email destinations checked against the existing source tree.
