@@ -1,6 +1,6 @@
 # Product review — 26 October 2026
 
-Release 4 files are prepared outside the public repository. They are not yet published to Lemon Squeezy: the existing browser session requires secure sign-in. Existing live release 3 delivery remains intact.
+Release 4 is published to all five existing live Lemon Squeezy products. Existing release 3 downloads remain accessible. Each release 4 ZIP was downloaded through an existing live zero-dollar QA order; all five SHA-256 hashes exactly match the tested originals. Paid product source remains outside the public repository.
 
 Changes across all five paid workspaces: first-use guidance, focus filters, sort controls, explicit no-results feedback, next-review columns for InvoiceForge and CertPai, visible backup status, unsaved-editor confirmation, and one-level removal recovery. Version 3 JSON backup compatibility is retained. Undo restores the prior whole working set after confirmation and is not a durable backup.
 
@@ -12,4 +12,4 @@ Positioning: prioritize freelancer payment follow-up and agency kickoff workflow
 
 Campaign videos: illustrated workflow demonstrations using fictional data, captions and original background audio; not screen recordings or customer outcome evidence. Lead creatives have distinct problem hooks. No paid spend, fake reviews, unsolicited outreach or revenue guarantees.
 
-Remaining: authenticated publication and download verification of v4; real-user usability feedback; actual product screen recordings; signed purchase attribution; commercial hosting plan confirmation; first genuine paid order and payout observation; physical-phone and native spreadsheet app checks.
+Remaining: real-user usability feedback; actual product screen recordings; signed purchase attribution; commercial hosting plan confirmation; first genuine paid order and payout observation; physical-phone and native spreadsheet app checks.
