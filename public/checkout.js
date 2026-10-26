@@ -52,7 +52,7 @@
     $('checkout-notice').classList.remove('warning');$('checkout-notice').textContent='Secure checkout with Lemon Squeezy. Review the final total and any applicable taxes there. Your receipt provides access to your download.';
     $('checkout-controls').hidden=false;$('payment-provider-note').textContent='Payment and file delivery are handled by Lemon Squeezy. Available payment methods are shown at checkout.';
     const button=document.createElement('button');button.type='button';button.className='button primary';button.textContent='Continue to secure checkout →';
-    button.addEventListener('click',()=>{if(!$('format-confirm').checked){status('Please confirm the file format before continuing.');$('format-confirm').focus();return;}location.assign(url.href);});
+    button.addEventListener('click',()=>{if(!$('format-confirm').checked){status('Please confirm the file format before continuing.');$('format-confirm').focus();return;}let destination=url.href;try{destination=window.MTSCampaign?.decorate(url.href)||url.href;}catch{}location.assign(destination);});
     $('payment-options').append(button);return;
    }
    if(config.environment!=='production'){$('checkout-notice').classList.add('warning');$('checkout-notice').textContent='Sandbox test checkout · No real payments. This direct payment route is for testing only.';}

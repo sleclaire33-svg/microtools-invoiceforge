@@ -17,3 +17,6 @@
 @media print{.workflow-story{break-inside:avoid}.workflow-record{background:white;color:#173f38}.workflow-record .eyebrow,.workflow-record dt,.workflow-record .workflow-note{color:#173f38}}
 
 .support-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}.support-actions .button{max-width:100%;white-space:normal}#support-form select{width:100%;min-height:44px;padding:12px;border:1px solid #b6c7bb;border-radius:6px;background:#fff;color:#173f38;font:inherit}#support-copy-panel{margin-top:18px}#support-copy-text{width:100%;box-sizing:border-box}
+/* Paid kit comparison: readable side-by-side, stacked on smaller screens. */
+.two-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+@media(max-width:700px){.two-grid{grid-template-columns:1fr}}

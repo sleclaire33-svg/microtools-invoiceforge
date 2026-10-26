@@ -22,3 +22,13 @@ Sources checked 25 October 2026:
 - https://vercel.com/docs/analytics/quickstart
 - https://vercel.com/docs/analytics/limits-and-pricing
 - https://vercel.com/docs/plans/hobby
+
+## Update — 26 October 2026
+
+Metricool website connection was verified on 25 October. The collection and InvoiceForge posts now show PUBLISHED with public Instagram URLs. The 25 October website report has three visits, potentially including verification traffic; no inference of demand is justified.
+
+The new campaign.js preserves only 24 predefined creative/channel labels in tab session storage for up to 24 hours. It passes an approved campaign_id as Lemon Squeezy checkout custom data. It accepts no arbitrary source strings, personal IDs or form data and honors QA/GPC/DNT exclusions. Checkout still works when storage or the optional campaign module fails. Four automated tests validate these boundaries.
+
+This is attribution preparation, NOT completed source-to-sale reporting. A signed Lemon Squeezy order webhook or supported analytics integration still needs account setup and an end-to-end test. Do not treat checkout handoff as a purchase or manufacture virtual page views as events. Current Metricool visit reporting remains unchanged.
+
+Reference: https://docs.lemonsqueezy.com/help/checkout/passing-custom-data
