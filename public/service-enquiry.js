@@ -27,6 +27,15 @@
    el('enquiry-status').textContent = 'Automatic copying is unavailable. Copy the selected enquiry below and paste it into your email service.';
   }
  });
+ for (const link of document.querySelectorAll('[data-enquiry-service]')) link.addEventListener('click', () => {
+  const service = link.dataset.enquiryService;
+  const select = el('enquiry-service');
+  if (!Array.from(select.options).some(option => option.value === service)) return;
+  select.value = service;
+  if (!el('enquiry-copy-panel').hidden) show(make());
+  el('enquiry-status').textContent = service + ' selected. Describe the result and available sources below.';
+  el('enquiry-goal').focus({ preventScroll: true });
+ });
  for (const event of ['input', 'change']) form.addEventListener(event, () => {
   if (!el('enquiry-copy-panel').hidden) show(make());
   el('enquiry-status').textContent = '';
