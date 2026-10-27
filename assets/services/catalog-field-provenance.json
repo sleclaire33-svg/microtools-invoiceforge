@@ -1,0 +1,390 @@
+{
+  "title": "Catalog Clarity field-level review example",
+  "version": "1.0",
+  "prepared_on": "2026-10-27",
+  "fictional": true,
+  "live_import_approved": false,
+  "notice": "All facts and source references are invented. This JSON preserves text identifiers and explicit unknowns. It is not a platform import schema or evidence for real products.",
+  "summary": {
+    "records": 10,
+    "ready_for_fictional_approval": 4,
+    "held": 6,
+    "approved_for_live_use": 0
+  },
+  "records": [
+    {
+      "sku": "DEMO-001",
+      "before": "Tape measure 150",
+      "proposed_title": "Metric tape measure — 150 cm — single",
+      "review_status": "ready_for_fictional_approval",
+      "source_location": "Demo supplier sheet A, row 2",
+      "source_type": "fictional_demonstration_only",
+      "fields": [
+        {
+          "field": "length_cm",
+          "value": "150",
+          "value_type": "string",
+          "source_text": "150 cm",
+          "source_location": "Demo supplier sheet A, row 2",
+          "transformation": null,
+          "status": "supported_in_fictional_source"
+        },
+        {
+          "field": "markings",
+          "value": "metric",
+          "value_type": "string",
+          "source_text": "metric marks",
+          "source_location": "Demo supplier sheet A, row 2",
+          "transformation": null,
+          "status": "supported_in_fictional_source"
+        },
+        {
+          "field": "pack_quantity",
+          "value": "1",
+          "value_type": "string",
+          "source_text": "one tape per pack",
+          "source_location": "Demo supplier sheet A, row 2",
+          "transformation": null,
+          "status": "supported_in_fictional_source"
+        }
+      ],
+      "next_action": "Retain length_cm=150 and pack_quantity=1; retailer verifies against real source in live work.",
+      "factual_approver": null,
+      "approval_date": null,
+      "live_import_approved": false
+    },
+    {
+      "sku": "DEMO-002",
+      "before": "White elastic 1 inch",
+      "proposed_title": "White elastic — 25.4 mm width — 1 m cut; composition pending",
+      "review_status": "hold",
+      "source_location": "Demo supplier sheet A, row 3",
+      "source_type": "fictional_demonstration_only",
+      "fields": [
+        {
+          "field": "width_mm",
+          "value": "25.4",
+          "value_type": "string",
+          "source_text": "1 inch",
+          "source_location": "Demo supplier sheet A, row 3",
+          "transformation": "Exact unit conversion: 1 inch × 25.4 mm/inch",
+          "status": "supported_in_fictional_source"
+        },
+        {
+          "field": "cut_length_m",
+          "value": "1",
+          "value_type": "string",
+          "source_text": "1 m cuts",
+          "source_location": "Demo supplier sheet A, row 3",
+          "transformation": null,
+          "status": "supported_in_fictional_source"
+        },
+        {
+          "field": "composition",
+          "value": null,
+          "value_type": "null",
+          "source_text": "composition not supplied",
+          "source_location": "Demo supplier sheet A, row 3",
+          "transformation": null,
+          "status": "unresolved"
+        }
+      ],
+      "next_action": "Keep original width 1 inch in change log; ask supplier for composition rather than assuming polyester.",
+      "factual_approver": null,
+      "approval_date": null,
+      "live_import_approved": false
+    },
+    {
+      "sku": "DEMO-003",
+      "before": "Universal foot fits all machines",
+      "proposed_title": "Snap-on presser foot — model compatibility unconfirmed",
+      "review_status": "hold",
+      "source_location": "Demo supplier leaflet B, page 1",
+      "source_type": "fictional_demonstration_only",
+      "fields": [
+        {
+          "field": "attachment_type",
+          "value": "snap-on",
+          "value_type": "string",
+          "source_text": "Snap-on presser foot",
+          "source_location": "Demo supplier leaflet B, page 1",
+          "transformation": null,
+          "status": "supported_in_fictional_source"
+        },
+        {
+          "field": "supported_models",
+          "value": null,
+          "value_type": "null",
+          "source_text": "no supported model list supplied",
+          "source_location": "Demo supplier leaflet B, page 1",
+          "transformation": null,
+          "status": "unresolved"
+        }
+      ],
+      "next_action": "Remove unsupported 'fits all' wording; obtain an authoritative compatibility list before publishing a fit claim.",
+      "factual_approver": null,
+      "approval_date": null,
+      "live_import_approved": false
+    },
+    {
+      "sku": "DEMO-004",
+      "before": "Red zip 20cm; length field 18",
+      "proposed_title": "Red zip — length unresolved",
+      "review_status": "hold",
+      "source_location": "Demo supplier sheet A, row 4; legacy export row 9",
+      "source_type": "fictional_demonstration_only",
+      "fields": [
+        {
+          "field": "tooth_length_cm",
+          "value": null,
+          "value_type": "null",
+          "source_text": "supplier: 20 cm; legacy export: 18 cm",
+          "source_location": "Demo supplier sheet A, row 4; legacy export row 9",
+          "transformation": "Conflict retained; confirm SKU identity and measurement convention before choosing a value",
+          "status": "unresolved"
+        }
+      ],
+      "next_action": "Retain both conflicting values in the log; retailer confirms correct SKU and measurement convention.",
+      "factual_approver": null,
+      "approval_date": null,
+      "live_import_approved": false
+    },
+    {
+      "sku": "DEMO-005",
+      "before": "Needles size 80 pack",
+      "proposed_title": "Sewing needles — size 80/12 — pack of 5",
+      "review_status": "ready_for_fictional_approval",
+      "source_location": "Demo supplier leaflet B, page 2",
+      "source_type": "fictional_demonstration_only",
+      "fields": [
+        {
+          "field": "needle_size",
+          "value": "80/12",
+          "value_type": "string",
+          "source_text": "Needle size 80/12",
+          "source_location": "Demo supplier leaflet B, page 2",
+          "transformation": null,
+          "status": "supported_in_fictional_source"
+        },
+        {
+          "field": "pack_quantity",
+          "value": "5",
+          "value_type": "string",
+          "source_text": "pack quantity 5",
+          "source_location": "Demo supplier leaflet B, page 2",
+          "transformation": null,
+          "status": "supported_in_fictional_source"
+        }
+      ],
+      "next_action": "Set size=80/12 and pack_quantity=5; do not add machine-model claims.",
+      "factual_approver": null,
+      "approval_date": null,
+      "live_import_approved": false
+    },
+    {
+      "sku": "DEMO-006",
+      "before": "Rotary replacement blade",
+      "proposed_title": "Rotary replacement blade — 45 mm — single",
+      "review_status": "hold",
+      "source_location": "Demo supplier sheet A, row 5",
+      "source_type": "fictional_demonstration_only",
+      "fields": [
+        {
+          "field": "diameter_mm",
+          "value": "45",
+          "value_type": "string",
+          "source_text": "Blade diameter 45 mm",
+          "source_location": "Demo supplier sheet A, row 5",
+          "transformation": null,
+          "status": "supported_in_fictional_source"
+        },
+        {
+          "field": "pack_quantity",
+          "value": "1",
+          "value_type": "string",
+          "source_text": "single blade",
+          "source_location": "Demo supplier sheet A, row 5",
+          "transformation": null,
+          "status": "supported_in_fictional_source"
+        },
+        {
+          "field": "handle_compatibility",
+          "value": null,
+          "value_type": "null",
+          "source_text": "no handle-fit statement",
+          "source_location": "Demo supplier sheet A, row 5",
+          "transformation": null,
+          "status": "unresolved"
+        }
+      ],
+      "next_action": "Record diameter_mm=45 and pack_quantity=1; leave handle compatibility blank.",
+      "factual_approver": null,
+      "approval_date": null,
+      "live_import_approved": false
+    },
+    {
+      "sku": "DEMO-007",
+      "before": "Marking pencil blue 2 pcs",
+      "proposed_title": "Blue marking pencils — pack of 2",
+      "review_status": "hold",
+      "source_location": "Demo supplier sheet A, row 6",
+      "source_type": "fictional_demonstration_only",
+      "fields": [
+        {
+          "field": "color",
+          "value": "blue",
+          "value_type": "string",
+          "source_text": "Blue marking pencils",
+          "source_location": "Demo supplier sheet A, row 6",
+          "transformation": null,
+          "status": "supported_in_fictional_source"
+        },
+        {
+          "field": "pack_quantity",
+          "value": "2",
+          "value_type": "string",
+          "source_text": "two per pack",
+          "source_location": "Demo supplier sheet A, row 6",
+          "transformation": null,
+          "status": "supported_in_fictional_source"
+        },
+        {
+          "field": "removability",
+          "value": null,
+          "value_type": "null",
+          "source_text": "removability not stated",
+          "source_location": "Demo supplier sheet A, row 6",
+          "transformation": null,
+          "status": "unresolved"
+        }
+      ],
+      "next_action": "Do not add washable, erasable or fabric-safe claims without instructions from the supplier.",
+      "factual_approver": null,
+      "approval_date": null,
+      "live_import_approved": false
+    },
+    {
+      "sku": "DEMO-008",
+      "before": "Cotton ribbon 10m",
+      "proposed_title": "Cotton ribbon — 12 mm width — 10 m reel",
+      "review_status": "ready_for_fictional_approval",
+      "source_location": "Demo supplier sheet A, row 7",
+      "source_type": "fictional_demonstration_only",
+      "fields": [
+        {
+          "field": "composition",
+          "value": "100% cotton",
+          "value_type": "string",
+          "source_text": "100% cotton",
+          "source_location": "Demo supplier sheet A, row 7",
+          "transformation": null,
+          "status": "supported_in_fictional_source"
+        },
+        {
+          "field": "width_mm",
+          "value": "12",
+          "value_type": "string",
+          "source_text": "width 12 mm",
+          "source_location": "Demo supplier sheet A, row 7",
+          "transformation": null,
+          "status": "supported_in_fictional_source"
+        },
+        {
+          "field": "reel_length_m",
+          "value": "10",
+          "value_type": "string",
+          "source_text": "reel length 10 m",
+          "source_location": "Demo supplier sheet A, row 7",
+          "transformation": null,
+          "status": "supported_in_fictional_source"
+        }
+      ],
+      "next_action": "Separate width_mm=12, length_m=10 and composition=100% cotton.",
+      "factual_approver": null,
+      "approval_date": null,
+      "live_import_approved": false
+    },
+    {
+      "sku": "DEMO-009",
+      "before": "Bobbins, code 00127",
+      "proposed_title": "Bobbins — manufacturer part 00127 — pack of 4",
+      "review_status": "hold",
+      "source_location": "Demo supplier leaflet B, page 3",
+      "source_type": "fictional_demonstration_only",
+      "fields": [
+        {
+          "field": "manufacturer_part_number",
+          "value": "00127",
+          "value_type": "string",
+          "source_text": "Manufacturer part number 00127",
+          "source_location": "Demo supplier leaflet B, page 3",
+          "transformation": "Text identifier: preserve all five characters",
+          "status": "supported_in_fictional_source"
+        },
+        {
+          "field": "pack_quantity",
+          "value": "4",
+          "value_type": "string",
+          "source_text": "pack quantity 4",
+          "source_location": "Demo supplier leaflet B, page 3",
+          "transformation": null,
+          "status": "supported_in_fictional_source"
+        },
+        {
+          "field": "supported_models",
+          "value": null,
+          "value_type": "null",
+          "source_text": "no model list",
+          "source_location": "Demo supplier leaflet B, page 3",
+          "transformation": null,
+          "status": "unresolved"
+        }
+      ],
+      "next_action": "Preserve leading zeros as text; no universal-fit claim; request model list if needed.",
+      "factual_approver": null,
+      "approval_date": null,
+      "live_import_approved": false
+    },
+    {
+      "sku": "DEMO-010",
+      "before": "Seam ripper small",
+      "proposed_title": "Blue seam ripper — 85 mm — single",
+      "review_status": "ready_for_fictional_approval",
+      "source_location": "Demo supplier sheet A, row 8",
+      "source_type": "fictional_demonstration_only",
+      "fields": [
+        {
+          "field": "overall_length_mm",
+          "value": "85",
+          "value_type": "string",
+          "source_text": "Overall length 85 mm",
+          "source_location": "Demo supplier sheet A, row 8",
+          "transformation": null,
+          "status": "supported_in_fictional_source"
+        },
+        {
+          "field": "pack_quantity",
+          "value": "1",
+          "value_type": "string",
+          "source_text": "one tool per pack",
+          "source_location": "Demo supplier sheet A, row 8",
+          "transformation": null,
+          "status": "supported_in_fictional_source"
+        },
+        {
+          "field": "handle_color",
+          "value": "blue",
+          "value_type": "string",
+          "source_text": "blue handle",
+          "source_location": "Demo supplier sheet A, row 8",
+          "transformation": null,
+          "status": "supported_in_fictional_source"
+        }
+      ],
+      "next_action": "Record overall_length_mm=85; do not infer blade length from overall length.",
+      "factual_approver": null,
+      "approval_date": null,
+      "live_import_approved": false
+    }
+  ]
+}

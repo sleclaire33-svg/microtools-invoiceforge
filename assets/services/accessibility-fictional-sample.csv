@@ -1,6 +1,6 @@
 ﻿Item,Source observation in fictional exercise,Preparation decision,Approval needed,Validation status
-Handout title,The draft used large bold text as a title.,Use one semantic level-one heading.,Content owner confirms title.,Demonstration only — independent test pending
-Learning objective,The objective was buried in a paragraph.,Create a level-two heading and keep the approved objective text.,Content owner confirms meaning.,Demonstration only — independent test pending
-Action table,The source example had unmarked headers.,Add a descriptive caption and explicit column/row headers.,Reviewer confirms appropriate table structure.,Demonstration only — independent test pending
+Handout title,The draft used large bold text as a title.,Use Word Title and heading styles; use a single h1 title in the HTML example.,Content owner confirms title.,Demonstration only — independent test pending
+Learning objective,The objective was buried in a paragraph.,Use a semantic section heading and keep the approved objective text.,Content owner confirms meaning.,Demonstration only — independent test pending
+Action table,The source example had unmarked headers.,Mark the simple Word table header row; the HTML example also has a caption and explicit column/row headers.,Reviewer confirms appropriate table structure.,Demonstration only — independent test pending
 Practice instructions,Steps were separated by manual line breaks.,Use a semantic ordered list with clear step labels.,Trainer confirms instructional sequence.,Demonstration only — independent test pending
 Final file,A final output format has not been contracted.,"Agree format, export, test and correct the final version.",Customer and qualified reviewer agree scope.,Not ready for public delivery
