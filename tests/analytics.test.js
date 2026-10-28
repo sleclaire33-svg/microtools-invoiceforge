@@ -1,5 +1,11 @@
 const test=require('node:test'),assert=require('node:assert/strict'),vm=require('node:vm'),fs=require('node:fs');
 const source=fs.readFileSync(require.resolve('../analytics.js'),'utf8');
+test('loading analytics twice emits only one visit beacon',()=>{
+ const images=[];
+ const context={URL,URLSearchParams,Set,location:new URL('https://www.microtoolsstudio.com/client-kickoff-checklist.html'),navigator:{},sessionStorage:{getItem:()=>null},document:{referrer:'',querySelector:()=>images[0]||null,createElement:()=>({setAttribute(){}}),body:{append:i=>images.push(i)}}};
+ vm.runInNewContext(source,context);vm.runInNewContext(source,context);
+ assert.equal(images.length,1);
+});
 function run(url,options={}){
  const images=[],saved=options.saved||new Map();
  const context={URL,URLSearchParams,Set,location:new URL(url),navigator:options.navigator||{},sessionStorage:{getItem:k=>saved.get(k),setItem:(k,v)=>saved.set(k,v)},document:{referrer:options.referrer||'',createElement:()=>({setAttribute(){}}),body:{append:i=>images.push(i)}}};

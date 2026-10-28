@@ -13,6 +13,8 @@
  if(navigator.globalPrivacyControl===true||navigator.doNotTrack==='1'||!pages.has(location.pathname))return;
  const params=new URLSearchParams({hash:'a2e2d47972f9642cf97b94b755df2a5e',u:'https://www.microtoolsstudio.com'+location.pathname});
  if(document.referrer){try{const ref=new URL(document.referrer);if(ref.protocol==='https:'||ref.protocol==='http:')params.set('ref',ref.origin+'/');}catch{}}
+ // Some guide pages load this file directly and via store.js. Count once.
+ if(document.querySelector?.('[data-mts-analytics="visit"]'))return;
  const beacon=document.createElement('img');
  beacon.alt='';beacon.width=1;beacon.height=1;beacon.hidden=true;
  beacon.referrerPolicy='no-referrer';beacon.setAttribute('data-mts-analytics','visit');
