@@ -13,6 +13,20 @@ function request(payload, signature) {
   const body = typeof payload === 'string' ? payload : JSON.stringify(payload);
   return new Request('https://example.test/api/lemon-webhook',{method:'POST',body,headers:{'content-type':'application/json','x-signature':signature ?? createHmac('sha256',env.LEMON_SQUEEZY_SIGNING_SECRET).update(body).digest('hex')}});
 }
+test('partner label survives browser navigation, checkout and signed order storage',async()=>{
+  const C=require('../campaign'),H=require('../api/_hosted-checkouts');
+  const {handleWebhook}=await import('../lib/lemon-orders.mjs');
+  for(const id of ['ao-kickoff-tab-text-a','ao-kickoff-tab-text-b','ao-kickoff-ft-resource','ao-kickoff-wdn-resource']){
+    const saved=new Map();
+    const browser={location:new URL('https://www.microtoolsstudio.com/agencyos.html?campaign='+id),navigator:{},sessionStorage:{getItem:k=>saved.get(k),setItem:(k,v)=>saved.set(k,v),removeItem:k=>saved.delete(k)}};
+    C.current(browser);browser.location=new URL('https://www.microtoolsstudio.com/checkout.html?product=agencyos_complete');
+    const label=new URL(C.decorate(H.agencyos_complete,browser)).searchParams.get('checkout[custom][campaign_id]');
+    let persisted;
+    const response=await handleWebhook(request(event({test_mode:true},{campaign_id:label,qa:'1'})),env,async(_url,options)=>{persisted=JSON.parse(options.body).p_order;return new Response(null,{status:204});});
+    assert.equal(response.status,200);assert.equal(persisted.campaign_id,id);
+    assert.equal(persisted.test_mode,true);assert.equal(persisted.is_qa,true);
+  }
+});
 test('signed order persists only the minimal approved fields and waits for durable storage', async () => {
   const {handleWebhook} = await import('../lib/lemon-orders.mjs'); let calls=0;
   const response = await handleWebhook(request(event()),env,async(url,options)=>{
