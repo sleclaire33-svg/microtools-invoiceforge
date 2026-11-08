@@ -33,3 +33,13 @@ test('untrusted hosted URLs and discount-bearing links fail closed',async()=>{
 test('unknown products cannot fall through to a different product checkout',async()=>{
  const h=await checkout('not-a-product');assert.equal(h.get('checkout-controls').hidden,true);assert.equal(h.get('payment-options').children.length,0);assert.equal(h.get('order-name').textContent,'Product not found');
 });
+
+test('direct kit review paths disclose format limits before hosted checkout',async()=>{
+ const expected={invoiceforge_complete:/No bank connection/,certpai_complete:/No credential verification/,siteintellect_complete:/No automated scanning/,claimproof_complete:/does not store attachments/,agencyos_complete:/No shared cloud workspace/};
+ for(const [key,pattern] of Object.entries(expected)){
+  const h=await checkout(key);
+  assert.equal(h.get('kit-format-notes').hidden,false);
+  assert.match(h.get('kit-limit').textContent,pattern);
+  assert.match(h.get('kit-detail-link').href,new RegExp('^'+key.replace('_complete','')+'\\.html'));
+ }
+});

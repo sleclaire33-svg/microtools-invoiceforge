@@ -31,7 +31,7 @@
  function bind(button,session){button.addEventListener('click',async()=>{if(busy)return;if(!$('format-confirm').checked){status('Please confirm the file format before continuing.');$('format-confirm').focus();return;}if(pending){showPending();status('Check your existing order before starting a new payment.');return;}setBusy(true);approved=false;status(config.environment==='sandbox'?'Opening sandbox checkout. This is a test; no real payment will be taken.':'Opening secure checkout…');try{await session.start({presentationMode:'auto'},beginOrder());}catch(e){status(e.message||'Checkout could not finish. Please check status.');showPending();}finally{setBusy(false);}});}
  function addButton(tag){const button=document.createElement(tag);button.type='pay';const host=document.createElement('div');if(tag==='paypal-basic-card-button'){const container=document.createElement('paypal-basic-card-container');container.append(button);host.append(container);}else host.append(button);$('payment-options').append(host);return button;}
  async function initialize(){
-  $('retry-checkout').hidden=true;$('checkout-notice').textContent='Checking checkout availability…';$('payment-options').replaceChildren();$('checkout-controls').hidden=true;$('checkout-alternatives').hidden=true;
+  $('retry-checkout').hidden=true;$('checkout-notice').textContent='Checking checkout availability…';$('payment-options').replaceChildren();$('checkout-controls').hidden=true;$('checkout-alternatives').hidden=true;$('kit-format-notes').hidden=true;
   try{
    const response=await fetch('/api/config',{headers:{Accept:'application/json'},cache:'no-store'});if(!response.ok)throw Error('Checkout is temporarily unavailable. Please try again later.');config=await response.json();
    item=Object.hasOwn(config.products||{},product)?config.products[product]:null;
@@ -40,6 +40,9 @@
    if(item.inclusions){$('order-inclusions').replaceChildren(...item.inclusions.map(text=>{const li=document.createElement('li');li.textContent=text;return li;}));}
    if(item.format==='zip'){
     const agency=product==='agencyos_complete';
+    const limits={invoiceforge_complete:'You record confirmed payments and send messages yourself. No bank connection, automatic reminders, client payment collection or accounting service.',certpai_complete:'You verify renewal sources and act on dates yourself. No credential verification, automatic reminders or compliance certification.',siteintellect_complete:'You inspect the website, record findings and retest fixes yourself. No automated scanning, security audit or compliance certification.',claimproof_complete:'Keep original files separately; the kit records their locations and creates an index. It does not store attachments, submit claims or guarantee an outcome.',agencyos_complete:'You review kickoff readiness, approvals and scope changes yourself. No shared cloud workspace, automatic client messaging or payment collection.'};
+    $('kit-limit').textContent=limits[product]||'Review the product page for the features and limitations of this download.';
+    $('kit-detail-link').href=pages[product]||'kits.html';$('kit-format-notes').hidden=false;
     $('order-format').textContent=agency?'Browser workspace + XLSX + editable guides + quick start':'Browser workspace + XLSX + fillable PDF + templates + quick start';
     $('format-confirm').nextElementSibling.textContent=agency?'I understand this is a digital download for desktop/laptop use. The browser workspace needs a modern browser; the separate XLSX file needs a compatible spreadsheet app.':'I understand this is a digital download for desktop/laptop use. The browser workspace needs a modern browser; the separate XLSX and fillable PDF files need compatible apps.';
    }
