@@ -22,7 +22,7 @@
 @media(max-width:700px){.two-grid{grid-template-columns:1fr}}
 
 /* Clear audience, visible workflow, and honest free-versus-paid comparison. */
-.portal-hero>div,.featured-workflow{min-width:0}.portal-hero h1{font-size:clamp(44px,4.8vw,68px)}
+.portal-hero{align-items:start}.portal-hero>div,.featured-workflow{min-width:0}.portal-hero h1{font-size:clamp(44px,4.8vw,68px)}
 .hero-help{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;margin:22px 0 0}
 .featured-workflow{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px;box-shadow:0 25px 65px -35px #28443144}
 .featured-workflow .board-heading{flex-wrap:wrap}.featured-workflow h2{font-size:29px;line-height:1.2;letter-spacing:-.03em;margin:8px 0 13px}.featured-workflow>p{font-size:13px;color:var(--muted)}
